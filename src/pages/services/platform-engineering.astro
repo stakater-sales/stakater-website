@@ -1,0 +1,47 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const features = [
+  { icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', title: 'Internal Developer Platform', description: 'We design and build your IDP — the golden path that gives developers self-service without platform team bottlenecks.' },
+  { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', title: 'GitOps Pipeline Design', description: 'ArgoCD, Flux, Tekton — we architect your GitOps workflow from repo to production, with sensible defaults and escape hatches.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Security & Policy Enforcement', description: 'OPA/Gatekeeper, Kyverno, Falco — policy as code baked into your platform so developers can\'t accidentally ship insecure configs.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Observability & Alerting', description: 'Full stack observability — metrics, logs, traces — with meaningful alerts. Not alert fatigue. Actual signal.' },
+  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Developer Experience', description: 'Backstage, Port, or custom dev portals. Service catalogues, templates, and documentation that developers actually use.' },
+  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', title: 'Team Enablement', description: 'We don\'t just build the platform — we train your team to own it. Workshops, runbooks, and ongoing knowledge transfer.' },
+];
+
+const process = [
+  { step: '01', title: 'Discovery', description: 'We audit your current stack, team structure, and pain points. No assumptions.' },
+  { step: '02', title: 'Design', description: 'Platform blueprint — architecture, tooling choices, golden paths, and team contracts.' },
+  { step: '03', title: 'Build', description: 'We implement the platform in your environment, with your team alongside us.' },
+  { step: '04', title: 'Enable', description: 'Knowledge transfer, runbooks, and handover. Your team owns it.' },
+];
+
+const deliverables = [
+  { title: 'Platform Architecture Document', description: 'Full architecture decision records (ADRs) and rationale for every major choice.' },
+  { title: 'GitOps Repository Structure', description: 'Production-ready repo layout with environments, RBAC, and policy enforcement.' },
+  { title: 'Developer Self-Service Portal', description: 'Backstage or equivalent — service catalogue, templates, and documentation.' },
+  { title: 'Observability Stack', description: 'Pre-wired Prometheus, Grafana dashboards, and Loki log aggregation.' },
+  { title: 'Runbooks & Playbooks', description: 'Day-2 operations runbooks for your team to maintain the platform independently.' },
+  { title: 'Team Training Sessions', description: 'Hands-on workshops covering the platform, GitOps workflow, and incident response.' },
+];
+
+const related = [
+  { label: 'KubeDeploy', href: '/services/kube-deploy', description: 'Production Kubernetes rollout' },
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing day-2 operations' },
+  { label: 'Stakater Cloud', href: '/products/stakater-cloud', description: 'Managed platform option' },
+];
+---
+
+<ServiceLayout
+  title="Platform Engineering"
+  description="Build your Internal Developer Platform with Stakater's platform engineering experts. GitOps, self-service, observability, and developer experience — done right."
+  label="Services"
+  headline="Your Internal Developer Platform, built right"
+  highlightWord="built right"
+  subtext="We design, build, and enable your platform engineering practice — from golden paths and self-service to policy enforcement and full-stack observability."
+  badge="Platform Engineering"
+  {features} {process} {deliverables} {related}
+  ctaHeadline="Ready to build your platform?"
+  ctaSubtext="Tell us about your team and current setup. We'll map the fastest path to a production-ready IDP."
+/>

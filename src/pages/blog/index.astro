@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const featured = allPosts.filter(p => p.data.featured);
+const regular = allPosts.filter(p => !p.data.featured);
+
+// Get all unique tags
+const allTags = [...new Set(allPosts.flatMap(p => p.data.tags))].sort();
+---
+
+<BaseLayout title="Blog" description="Platform engineering insights, Kubernetes deep dives, and cloud-native thinking from the Stakater engineering team.">
+  <div class="py-16 lg:py-24">
+    <div class="container-site">
+      <!-- Header -->
+      <div class="mb-16 animate-on-scroll">
+        <p class="section-label mb-3">Blog</p>
+        <h1 class="font-display text-display-lg font-black text-text-primary mb-4">
+          Engineering insights.<br />
+          <span class="text-brand-red">No fluff.</span>
+        </h1>
+        <p class="text-text-secondary max-w-xl">Real-world Kubernetes, platform engineering, and cloud-native thinking — written by engineers who run this stuff in production.</p>
+      </div>
+
+      <!-- Tag filters -->
+      {allTags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-12 animate-on-scroll">
+          <a href="/blog" class="tag">All</a>
+          {allTags.map(tag => (
+            <a href={`/blog/tag/${tag}`} class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-mono border border-surface-border text-text-secondary hover:border-brand-red hover:text-brand-red transition-all">
+              {tag}
+            </a>
+          ))}
+        </div>
+      )}
+
+      <!-- Featured posts -->
+      {featured.length > 0 && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {featured.map(post => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              publishedAt={post.data.publishedAt}
+              author={post.data.author}
+              tags={post.data.tags}
+              image={post.data.image}
+              href={`/blog/${post.slug}`}
+              featured={true}
+            />
+          ))}
+        </div>
+      )}
+
+      <!-- All posts -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {regular.map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            publishedAt={post.data.publishedAt}
+            author={post.data.author}
+            tags={post.data.tags}
+            image={post.data.image}
+            href={`/blog/${post.slug}`}
+          />
+        ))}
+      </div>
+
+      {allPosts.length === 0 && (
+        <div class="text-center py-24 text-text-muted">
+          <p class="font-display text-2xl font-bold mb-2">Coming soon</p>
+          <p>Blog posts are being migrated. Check back shortly.</p>
+        </div>
+      )}
+    </div>
+  </div>
+</BaseLayout>

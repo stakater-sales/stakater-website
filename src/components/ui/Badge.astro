@@ -1,0 +1,16 @@
+---
+interface Props {
+  label: string;
+  variant?: 'red' | 'ghost' | 'outline';
+  size?: 'sm' | 'md';
+}
+const { label, variant = 'red', size = 'md' } = Astro.props;
+const base = 'inline-flex items-center font-mono font-semibold rounded-full border';
+const sizes = { sm: 'text-xs px-2 py-0.5', md: 'text-xs px-3 py-1' };
+const variants = {
+  red: 'bg-brand-red-glow text-brand-red border-brand-red/20',
+  ghost: 'bg-surface text-text-secondary border-surface-border',
+  outline: 'bg-transparent text-text-muted border-surface-border',
+};
+---
+<span class={`${base} ${sizes[size]} ${variants[variant]}`}>{label}</span>

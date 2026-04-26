@@ -1,0 +1,104 @@
+---
+import { getStakaterOpenSourceStats, formatCount } from '../../lib/github';
+const { reloader, forecastle, ingressMonitor } = await getStakaterOpenSourceStats();
+
+const repos = [
+  {
+    name: 'Reloader',
+    description: 'Ensures your workloads reload configurations whenever ConfigMaps or Secrets are updated. Zero-downtime, automatic, and battle-tested in production.',
+    stats: reloader,
+    language: 'Go',
+    topics: ['kubernetes', 'configmap', 'secret', 'operator'],
+  },
+  {
+    name: 'Forecastle',
+    description: 'A control panel that dynamically discovers and provides a launchpad to access all applications deployed on Kubernetes.',
+    stats: forecastle,
+    language: 'Go',
+    topics: ['kubernetes', 'dashboard', 'launchpad', 'apps'],
+  },
+  {
+    name: 'IngressMonitorController',
+    description: 'Watches ingress endpoints and automatically creates uptime monitors on services like UptimeRobot, Pingdom, and StatusCake.',
+    stats: ingressMonitor,
+    language: 'Go',
+    topics: ['kubernetes', 'ingress', 'monitoring', 'uptime'],
+  },
+];
+---
+
+<section class="py-24 lg:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 bg-grid opacity-50"></div>
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent"></div>
+
+  <div class="container-site relative z-10">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6 animate-on-scroll">
+      <div>
+        <p class="section-label mb-3">Open Source</p>
+        <h2 class="font-display text-display-lg font-black text-text-primary">
+          Built in the open.<br />
+          <span class="text-brand-red">Used in production.</span>
+        </h2>
+      </div>
+      <a href="https://github.com/stakater" target="_blank" rel="noopener noreferrer" class="btn-secondary self-start lg:self-auto flex-shrink-0">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {repos.map((repo, i) => (
+        <a
+          href={repo.stats.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`card p-8 group animate-on-scroll`}
+          style={`animation-delay: ${i * 150}ms`}
+        >
+          <div class="flex items-start justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-brand-red/10 border border-brand-red/20 flex items-center justify-center">
+                <svg class="w-5 h-5 text-brand-red" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-display text-lg font-black text-text-primary group-hover:text-brand-red transition-colors">{repo.name}</h3>
+                <span class="text-xs font-mono text-text-muted">stakater/{repo.name.toLowerCase()}</span>
+              </div>
+            </div>
+            <svg class="w-4 h-4 text-text-muted group-hover:text-brand-red group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </div>
+
+          <p class="text-text-secondary text-sm leading-relaxed mb-6">{repo.description}</p>
+
+          <!-- Live stats -->
+          <div class="flex items-center gap-5">
+            <div class="flex items-center gap-1.5 text-sm text-text-secondary">
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              <span class="font-semibold text-text-primary">{repo.stats.stars > 0 ? formatCount(repo.stats.stars) : '...'}</span>
+              <span class="text-text-muted">stars</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-sm text-text-secondary">
+              <svg class="w-4 h-4 text-text-muted" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5C13 6.30622 12.1652 7.41746 11 7.82929V13.0012C11.0959 12.9989 11.1923 12.9978 11.289 12.9978C12.3436 12.9978 13.3283 13.2656 14.1807 13.7349C14.4523 12.7725 15.3376 12.0556 16.3979 12.0043C16.4317 12.0015 16.4658 12 16.5 12C17.8807 12 19 13.1193 19 14.5C19 15.8807 17.8807 17 16.5 17C15.1193 17 14 15.8807 14 14.5V14.4155C13.2871 13.9948 12.4545 13.7533 11.5635 13.7533C9.32085 13.7533 7.47188 15.352 7.07248 17.4773C8.09476 17.9063 8.8125 18.9218 8.8125 20.0978C8.8125 21.6976 7.5101 23 5.9103 23C4.31047 23 3.008 21.6976 3.008 20.0978C3.008 18.8528 3.77783 17.7839 4.87453 17.3719C5.33074 14.6189 7.50307 12.4349 10.2543 11.8665V7.82929C9.08481 7.41746 8.25 6.30622 8.25 5C8.25 3.34315 9.59315 2 11.25 2"/>
+              </svg>
+              <span class="font-semibold text-text-primary">{repo.stats.forks > 0 ? formatCount(repo.stats.forks) : '...'}</span>
+              <span class="text-text-muted">forks</span>
+            </div>
+            <div class="flex items-center gap-1.5 ml-auto">
+              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+              <span class="text-xs font-mono text-text-muted">{repo.language}</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

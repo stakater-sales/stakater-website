@@ -1,0 +1,28 @@
+---
+import { getTotalStakaterStars, formatTotalStars } from '../../lib/github';
+
+const totalStars = await getTotalStakaterStars();
+const starsDisplay = totalStars > 0 ? formatTotalStars(totalStars) : '11k+';
+
+const stats = [
+  { value: '100+', label: 'Enterprise Customers', description: 'Across Europe and beyond' },
+  { value: starsDisplay, label: 'GitHub Stars', description: 'On our open source projects' },
+  { value: '80%', label: 'Faster to Market', description: 'Reported by Elisa Container Platform' },
+  { value: '60%', label: 'Reduced TCO', description: 'Total cost of ownership savings' },
+];
+---
+
+<section class="py-16 border-y border-surface-border relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-brand-red/3 to-transparent"></div>
+  <div class="container-site relative z-10">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-surface-border">
+      {stats.map((stat, i) => (
+        <div class={`text-center px-8 animate-on-scroll`} style={`animation-delay: ${i * 100}ms`}>
+          <div class="font-display text-4xl lg:text-5xl font-black text-brand-red mb-1">{stat.value}</div>
+          <div class="text-sm font-semibold text-text-primary mb-1">{stat.label}</div>
+          <div class="text-xs text-text-muted">{stat.description}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

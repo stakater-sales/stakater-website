@@ -1,0 +1,42 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+
+const features = [
+  { icon: 'M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7', title: 'Architecture Review', description: 'We review your existing or planned architecture against production Kubernetes best practices and identify risks early.' },
+  { icon: 'M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z', title: 'Cluster Design', description: 'Node pools, networking (CNI), ingress strategy, storage classes, and namespace structure — designed for your workloads.' },
+  { icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z', title: 'Security Architecture', description: 'Network policies, pod security standards, secrets management, and image supply chain — threat model included.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Multi-Tenant Strategy', description: 'How to structure namespaces, RBAC, and quotas for your team topology. Prevents painful re-architecture later.' },
+  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'HA & Disaster Recovery', description: 'Control plane HA, etcd backup strategy, multi-zone node distribution, and RTO/RPO targets mapped to your SLAs.' },
+  { icon: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z', title: 'Cost Modelling', description: 'Right-sizing recommendations, spot instance strategy, and cluster autoscaler config — before you spend anything.' },
+];
+
+const process = [
+  { step: '01', title: 'Requirements', description: 'Workload inventory, team structure, compliance requirements, and SLA targets.' },
+  { step: '02', title: 'Design', description: 'Architecture document with all decisions, alternatives considered, and trade-offs.' },
+  { step: '03', title: 'Review', description: 'Walkthrough with your team. Questions answered, design refined.' },
+  { step: '04', title: 'Handover', description: 'Implementation-ready specification your team (or ours) can build from.' },
+];
+
+const deliverables = [
+  { title: 'Kubernetes Architecture Document', description: 'Full blueprint covering cluster design, networking, security, and operational model.' },
+  { title: 'ADR Log', description: 'Architecture Decision Records for every major choice — with alternatives and rationale.' },
+  { title: 'Security Threat Model', description: 'Attack surface analysis and mitigations for your specific workloads.' },
+  { title: 'Cost Estimate', description: 'Cloud cost projection based on your workload sizing and traffic patterns.' },
+];
+
+const related = [
+  { label: 'KubeDeploy', href: '/services/kube-deploy', description: 'Implement the design' },
+  { label: 'Platform Engineering', href: '/services/platform-engineering', description: 'Full IDP buildout' },
+  { label: 'KubeAudit', href: '/services/kube-audit', description: 'Audit an existing cluster' },
+];
+---
+
+<ServiceLayout
+  title="KubeDesign"
+  description="Kubernetes architecture and design from experts who've done it in production. Get the blueprint right before you build."
+  label="Services"
+  headline="Get the architecture right before you build"
+  highlightWord="before you build"
+  subtext="KubeDesign is a structured engagement that produces a production-ready Kubernetes architecture — cluster design, security model, networking strategy, and cost estimate."
+  {features} {process} {deliverables} {related}
+/>

@@ -1,0 +1,49 @@
+---
+interface Props {
+  headline?: string;
+  subtext?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+const {
+  headline = "Let's talk Kubernetes.",
+  subtext = "Describe your Kubernetes setup and we'll map the next step.",
+  primaryLabel = "Discuss my Setup",
+  primaryHref = "/contact",
+  secondaryLabel = "Browse Case Studies",
+  secondaryHref = "/case-studies",
+} = Astro.props;
+---
+
+<section class="py-24 lg:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-brand-red/8 via-background to-background"></div>
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent"></div>
+  <div class="absolute inset-0 bg-grid opacity-30"></div>
+
+  <!-- Glow -->
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-red/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container-site relative z-10 text-center">
+    <div class="max-w-2xl mx-auto animate-on-scroll">
+      <h2 class="font-display text-display-lg font-black text-text-primary mb-4">
+        {headline}
+      </h2>
+      <p class="text-text-secondary text-lg mb-10">{subtext}</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href={primaryHref} class="btn-primary text-base px-8 py-3.5 shadow-glow-red">
+          {primaryLabel}
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        {secondaryLabel && (
+          <a href={secondaryHref} class="btn-secondary text-base px-8 py-3.5">
+            {secondaryLabel}
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

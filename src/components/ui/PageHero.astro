@@ -1,0 +1,61 @@
+---
+/**
+ * PageHero - Reusable inner-page hero
+ * Used by product pages, service pages, etc.
+ */
+interface Props {
+  label: string;
+  headline: string;       // supports <br> via split
+  highlightWord?: string; // word to colour brand-red
+  subtext: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  badge?: string;
+}
+const { label, headline, highlightWord, subtext, primaryCta, secondaryCta, badge } = Astro.props;
+
+// Highlight a word in red
+function renderHeadline(h: string, hw?: string) {
+  if (!hw) return h;
+  return h.replace(hw, `<span class="text-brand-red">${hw}</span>`);
+}
+---
+
+<section class="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
+  <div class="absolute inset-0 bg-grid opacity-60"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand-red/8 rounded-full blur-[120px] pointer-events-none"></div>
+
+  <div class="container-site relative z-10">
+    <div class="max-w-3xl animate-on-scroll">
+      {badge && (
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-red/30 bg-brand-red-glow mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-red animate-pulse"></span>
+          <span class="text-xs font-mono font-semibold text-brand-red tracking-wider uppercase">{badge}</span>
+        </div>
+      )}
+      <p class="section-label mb-4">{label}</p>
+      <h1
+        class="font-display text-display-lg lg:text-display-xl font-black text-text-primary mb-6 leading-[1.05]"
+        set:html={renderHeadline(headline, highlightWord)}
+      />
+      <p class="text-lg text-text-secondary leading-relaxed mb-10 max-w-2xl">{subtext}</p>
+      {(primaryCta || secondaryCta) && (
+        <div class="flex flex-col sm:flex-row gap-4">
+          {primaryCta && (
+            <a href={primaryCta.href} class="btn-primary text-base px-8 py-3.5 shadow-glow-red-sm">
+              {primaryCta.label}
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </a>
+          )}
+          {secondaryCta && (
+            <a href={secondaryCta.href} class="btn-secondary text-base px-8 py-3.5">
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</section>

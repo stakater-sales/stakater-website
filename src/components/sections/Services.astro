@@ -1,0 +1,99 @@
+---
+/**
+ * Services — homepage services overview section
+ * Shows Platform Engineering + Kube* services + Platform Enablement
+ * Add new services to the arrays below — component handles layout automatically
+ */
+
+const platformEngineering = {
+  label: 'Platform Engineering',
+  href: '/services/platform-engineering',
+  description: 'Build your Internal Developer Platform — GitOps, self-service, observability, and developer experience.',
+  highlight: true,
+};
+
+const kubeServices = [
+  { label: 'KubeDesign', href: '/services/kube-design', description: 'Architecture & design' },
+  { label: 'KubeDeploy', href: '/services/kube-deploy', description: 'End-to-end deployment' },
+  { label: 'KubeCare', href: '/services/kube-care', description: '24/7 day-2 operations' },
+  { label: 'KubeAudit', href: '/services/kube-audit', description: 'Security & cost audit' },
+  { label: 'KubeStart', href: '/services/kube-start', description: 'Fast Kubernetes onboarding' },
+];
+
+const enablement = [
+  { label: 'AKS', href: '/services/aks-enablement', cloud: 'Azure' },
+  { label: 'EKS', href: '/services/eks-enablement', cloud: 'AWS' },
+  { label: 'Rancher', href: '/services/rancher-enablement', cloud: 'SUSE' },
+  { label: 'OpenShift', href: '/services/openshift-enablement', cloud: 'Red Hat' },
+];
+---
+
+<section class="py-24 lg:py-32 border-t border-surface-border">
+  <div class="container-site">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 animate-on-scroll">
+      <div>
+        <p class="section-label mb-3">Services</p>
+        <h2 class="font-display text-display-lg font-black text-text-primary">
+          Kubernetes expertise,<br />
+          <span class="text-brand-red">end to end</span>
+        </h2>
+      </div>
+      <a href="/services/platform-engineering" class="btn-secondary self-start lg:self-auto flex-shrink-0">
+        View all services
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Platform Engineering — full height left card -->
+      <a href={platformEngineering.href}
+         class="group card p-8 flex flex-col lg:row-span-2 bg-gradient-to-br from-brand-red/8 to-background-card border-brand-red/20 hover:border-brand-red/50 animate-on-scroll">
+        <span class="tag mb-6 self-start">Flagship</span>
+        <h3 class="font-display text-display-sm font-black text-text-primary group-hover:text-brand-red transition-colors mb-4">
+          {platformEngineering.label}
+        </h3>
+        <p class="text-text-secondary leading-relaxed flex-1">{platformEngineering.description}</p>
+        <div class="flex items-center gap-2 mt-8 text-brand-red font-semibold text-sm">
+          Learn more
+          <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Kube* Services grid -->
+      <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {kubeServices.map((s, i) => (
+          <a href={s.href}
+             class="group card p-5 hover:border-brand-red/30 animate-on-scroll"
+             style={`animation-delay:${(i+1)*80}ms`}>
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="font-display font-bold text-text-primary group-hover:text-brand-red transition-colors mb-1">{s.label}</h3>
+                <p class="text-xs text-text-muted">{s.description}</p>
+              </div>
+              <svg class="w-4 h-4 text-text-muted group-hover:text-brand-red flex-shrink-0 mt-0.5 group-hover:translate-x-0.5 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Platform Enablement strip -->
+      <div class="lg:col-span-2 card p-6 animate-on-scroll" style="animation-delay:480ms">
+        <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-4">Platform Enablement</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {enablement.map(e => (
+            <a href={e.href} class="group flex flex-col p-3 rounded-lg border border-surface-border hover:border-brand-red/30 hover:bg-brand-red/5 transition-all">
+              <span class="font-display font-bold text-sm text-text-primary group-hover:text-brand-red transition-colors">{e.label}</span>
+              <span class="text-xs text-text-muted font-mono">{e.cloud}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

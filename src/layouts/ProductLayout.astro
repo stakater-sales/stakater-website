@@ -1,0 +1,105 @@
+---
+/**
+ * ProductLayout — shared layout for all product pages
+ * Wraps BaseLayout with product-specific patterns:
+ * PageHero → Features → Metrics → How it works → Use cases → Pricing CTA
+ */
+import BaseLayout from './BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import FeatureGrid from '../components/ui/FeatureGrid.astro';
+import MetricBar from '../components/ui/MetricBar.astro';
+import PricingCTA from '../components/ui/PricingCTA.astro';
+import CTA from '../components/sections/CTA.astro';
+import Badge from '../components/ui/Badge.astro';
+
+interface Feature { icon?: string; title: string; description: string }
+interface Metric { value: string; label: string; sub?: string }
+interface UseCase { title: string; description: string }
+
+interface Props {
+  // SEO
+  title: string;
+  description: string;
+  // Hero
+  label: string;
+  headline: string;
+  highlightWord?: string;
+  subtext: string;
+  badge?: string;
+  primaryCta?: { label: string; href: string };
+  secondaryCta?: { label: string; href: string };
+  // Content
+  tag: string;
+  features: Feature[];
+  metrics?: Metric[];
+  useCases?: UseCase[];
+  // Optional sections
+  showPricing?: boolean;
+}
+
+const {
+  title, description,
+  label, headline, highlightWord, subtext, badge,
+  primaryCta = { label: 'Contact Us', href: '/contact' },
+  secondaryCta,
+  tag, features, metrics = [], useCases = [],
+  showPricing = true,
+} = Astro.props;
+---
+
+<BaseLayout {title} {description}>
+  <PageHero
+    {label} {headline} {highlightWord} {subtext} {badge}
+    primaryCta={primaryCta}
+    secondaryCta={secondaryCta}
+  />
+
+  <!-- Features -->
+  <section class="py-16 lg:py-24">
+    <div class="container-site">
+      <div class="mb-12 animate-on-scroll">
+        <Badge label={tag} />
+        <h2 class="font-display text-display-md font-black text-text-primary mt-4">
+          What's included
+        </h2>
+      </div>
+      <FeatureGrid {features} cols={3} />
+    </div>
+  </section>
+
+  <!-- Metrics -->
+  {metrics.length > 0 && <MetricBar {metrics} />}
+
+  <!-- Use Cases -->
+  {useCases.length > 0 && (
+    <section class="py-16 lg:py-24 bg-background-secondary border-y border-surface-border">
+      <div class="container-site">
+        <div class="mb-12 animate-on-scroll">
+          <p class="section-label mb-3">Use Cases</p>
+          <h2 class="font-display text-display-md font-black text-text-primary">Built for your team</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {useCases.map((uc, i) => (
+            <div class="card p-6 animate-on-scroll" style={`animation-delay:${i*100}ms`}>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full bg-brand-red/10 border border-brand-red/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div class="w-1.5 h-1.5 rounded-full bg-brand-red"></div>
+                </div>
+                <div>
+                  <h3 class="font-display text-base font-bold text-text-primary mb-1">{uc.title}</h3>
+                  <p class="text-sm text-text-secondary leading-relaxed">{uc.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Extra slot for custom sections -->
+  <slot />
+
+  {showPricing && <PricingCTA productName={title} />}
+  <CTA />
+</BaseLayout>

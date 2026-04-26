@@ -1,0 +1,65 @@
+---
+const testimonials = [
+  {
+    quote: "Stakater and Red Hat have a shared passion for making open-source technology available for the enterprise.",
+    author: "Oskar Palmblad",
+    role: "Senior Partner Manager",
+    company: "Red Hat",
+    initials: "OP",
+  },
+  {
+    quote: "We're using the App Agility Platform to convert applications to microservices. As a result, we're consistently getting to market 80% faster with 60% reduced total cost of ownership.",
+    author: "Eero Arvonen",
+    role: "Container Platform Owner",
+    company: "Elisa",
+    initials: "EA",
+  },
+  {
+    quote: "The Kubernetes Ninjas at Stakater have a deep understanding of container platforms as well as cloud-native and microservices-based applications.",
+    author: "Håkan Fahlén",
+    role: "IT Core Infrastructure Manager",
+    company: "PTCL",
+    initials: "HF",
+  },
+];
+---
+
+<section class="py-24 lg:py-32">
+  <div class="container-site">
+    <div class="mb-16 animate-on-scroll">
+      <p class="section-label mb-3">Customer Stories</p>
+      <h2 class="font-display text-display-lg font-black text-text-primary">
+        Trusted by engineering<br />
+        <span class="text-brand-red">leaders worldwide</span>
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {testimonials.map((t, i) => (
+        <div class={`card p-8 flex flex-col animate-on-scroll`} style={`animation-delay: ${i * 120}ms`}>
+          <!-- Quote mark -->
+          <div class="text-brand-red font-display text-5xl font-black leading-none mb-4 opacity-50">"</div>
+          <p class="text-text-secondary leading-relaxed flex-1 mb-8">"{t.quote}"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-red/10 border border-brand-red/20 flex items-center justify-center flex-shrink-0">
+              <span class="text-xs font-display font-black text-brand-red">{t.initials}</span>
+            </div>
+            <div>
+              <p class="text-sm font-semibold text-text-primary">{t.author}</p>
+              <p class="text-xs text-text-muted">{t.role} · {t.company}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10 text-center animate-on-scroll">
+      <a href="/case-studies" class="btn-secondary">
+        Browse all case studies
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+const features = [
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Security Posture Review', description: 'CIS benchmark assessment, RBAC audit, network policy review, secrets management evaluation, and supply chain analysis.' },
+  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Reliability Assessment', description: 'HA configuration, resource requests/limits, PodDisruptionBudgets, HPA/VPA setup, and readiness/liveness probe review.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Cost & Efficiency Audit', description: 'Resource utilisation analysis, rightsizing opportunities, spot usage, and cluster autoscaler configuration review.' },
+  { icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4', title: 'Storage & Networking Review', description: 'StorageClass configuration, PV/PVC sizing, CNI setup, ingress architecture, and service mesh evaluation.' },
+  { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', title: 'Compliance Gap Analysis', description: 'Map your cluster against GDPR, SOC2, ISO27001, or industry-specific requirements. Know exactly what\'s missing.' },
+  { icon: 'M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z', title: 'Prioritised Remediation Plan', description: 'Not just a list of findings — a prioritised plan with effort estimates so you know what to fix first.' },
+];
+const process = [
+  { step: '01', title: 'Access', description: 'Read-only access to your cluster. No changes made during audit.' },
+  { step: '02', title: 'Assessment', description: '2-5 days of deep analysis across security, reliability, cost, and compliance.' },
+  { step: '03', title: 'Report', description: 'Detailed findings with severity ratings and remediation guidance.' },
+  { step: '04', title: 'Debrief', description: 'Walkthrough with your team. Questions answered, priorities agreed.' },
+];
+const deliverables = [
+  { title: 'Security Audit Report', description: 'CIS benchmark results, RBAC analysis, and CVE exposure assessment.' },
+  { title: 'Reliability Gap Analysis', description: 'HA posture, single points of failure, and missing reliability patterns.' },
+  { title: 'Cost Optimisation Report', description: 'Specific rightsizing recommendations with projected savings.' },
+  { title: 'Remediation Roadmap', description: 'Prioritised action plan with effort estimates and quick wins highlighted.' },
+];
+const related = [
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing operations post-audit' },
+  { label: 'KubeDesign', href: '/services/kube-design', description: 'Architecture from scratch' },
+  { label: 'Platform Engineering', href: '/services/platform-engineering', description: 'Full platform rebuild' },
+];
+---
+<ServiceLayout
+  title="KubeAudit"
+  description="Audit your Kubernetes setup for security gaps, reliability risks, and cost waste. Get a prioritised remediation plan from Stakater's experts."
+  label="Services" headline="Know exactly what's wrong with your cluster" highlightWord="exactly"
+  subtext="KubeAudit is a thorough assessment of your Kubernetes setup across security, reliability, cost, and compliance — with a prioritised remediation plan."
+  {features} {process} {deliverables} {related}
+/>

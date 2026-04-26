@@ -1,0 +1,40 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro';
+
+const features = [
+  { icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', title: 'Namespace-Level Isolation', description: 'Enforce strict boundaries between tenants at the namespace level. No shared resources, no noisy neighbours.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'RBAC at Scale', description: 'Define once, apply everywhere. Tenant RBAC templates that propagate automatically as namespaces are created.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Resource Quotas & Limits', description: 'Set CPU, memory, and storage quotas per tenant. Prevent any one team from starving the cluster.' },
+  { icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9', title: 'Network Policy Automation', description: 'Default-deny network policies applied per tenant automatically. Egress and ingress controls without manual toil.' },
+  { icon: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z', title: 'Self-Service Tenant Provisioning', description: 'Developers request namespaces via GitOps. Admins approve. MTO handles the rest — no manual kubectl.' },
+  { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', title: 'OpenShift & Kubernetes', description: 'Native support for both OpenShift and upstream Kubernetes. CRD-based, so it fits your existing GitOps workflow.' },
+];
+
+const metrics = [
+  { value: '1', label: 'CRD to define a tenant', sub: 'That\'s all it takes' },
+  { value: '0', label: 'Manual namespace setup', sub: 'Fully automated' },
+  { value: '100%', label: 'GitOps compatible', sub: 'ArgoCD + Flux' },
+  { value: '10k+', label: 'Production clusters', sub: 'Running MTO today' },
+];
+
+const useCases = [
+  { title: 'Platform teams running multi-team clusters', description: 'Give 10+ engineering teams self-service access while keeping your cluster clean and costs under control.' },
+  { title: 'Enterprises moving to OpenShift', description: 'MTO integrates natively with OpenShift\'s tenant model, extending it with additional automation and guardrails.' },
+  { title: 'SaaS companies with per-customer isolation', description: 'Provision a namespace per customer with automated RBAC, quotas, and network policies at scale.' },
+  { title: 'Regulated workloads requiring isolation', description: 'Financial services and healthcare teams that need provable separation between workloads for compliance.' },
+];
+---
+
+<ProductLayout
+  title="Multi-Tenant Operator"
+  description="Enforce enterprise-grade multi-tenancy across Kubernetes and OpenShift. Namespace isolation, RBAC, quotas, and network policies — managed as code."
+  label="Products"
+  headline="Multi-tenancy that actually scales"
+  highlightWord="actually scales"
+  subtext="MTO enforces enterprise-grade tenant isolation across Kubernetes and OpenShift — RBAC, quotas, network policies, and self-service provisioning, all defined as code."
+  badge="MTO"
+  tag="Multi-Tenant Operator"
+  primaryCta={{ label: 'See MTO in Action', href: '/contact' }}
+  secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/stakater/multitenantoperator' }}
+  {features} {metrics} {useCases}
+/>

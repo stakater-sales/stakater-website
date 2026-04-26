@@ -1,0 +1,50 @@
+---
+import { formatDate } from '../../lib/utils';
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  author: string;
+  tags: string[];
+  image?: string;
+  href: string;
+  featured?: boolean;
+}
+const { title, description, publishedAt, author, tags, image, href, featured = false } = Astro.props;
+---
+
+<a href={href} class={`group card overflow-hidden flex flex-col transition-all duration-300
+  ${featured ? 'lg:col-span-2' : ''}`}>
+  <!-- Image -->
+  {image ? (
+    <div class="aspect-video overflow-hidden bg-background-secondary">
+      <img src={image} alt={title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+    </div>
+  ) : (
+    <div class="aspect-video bg-gradient-to-br from-background-secondary to-background-tertiary flex items-center justify-center border-b border-surface-border">
+      <div class="w-16 h-16 rounded-2xl bg-brand-red/10 border border-brand-red/20 flex items-center justify-center">
+        <span class="font-display font-black text-brand-red text-xl">S</span>
+      </div>
+    </div>
+  )}
+
+  <div class="p-6 flex flex-col flex-1">
+    <!-- Tags -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      {tags.slice(0, 3).map((tag) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+
+    <h3 class={`font-display font-black text-text-primary group-hover:text-brand-red transition-colors mb-3 flex-1
+      ${featured ? 'text-display-sm' : 'text-xl'}`}>
+      {title}
+    </h3>
+    <p class="text-text-secondary text-sm leading-relaxed mb-6 line-clamp-3">{description}</p>
+
+    <div class="flex items-center justify-between text-xs text-text-muted mt-auto">
+      <span class="font-mono">{author}</span>
+      <span>{formatDate(publishedAt)}</span>
+    </div>
+  </div>
+</a>

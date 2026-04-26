@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+<BaseLayout title="Events" description="Find Stakater at KubeCon, OpenShift Commons, and other cloud-native events.">
+  <PageHero label="Events" headline="Find us in the community" highlightWord="community"
+    subtext="We speak at, sponsor, and attend cloud-native events across Europe and globally. Come find us." />
+  <section class="py-16 lg:py-24">
+    <div class="container-site max-w-3xl">
+      <div class="card p-12 text-center animate-on-scroll">
+        <p class="font-display text-xl font-black text-text-primary mb-2">No upcoming events listed yet</p>
+        <p class="text-text-secondary mb-6">Check back soon or follow us on LinkedIn for event announcements.</p>
+        <div class="flex justify-center gap-4">
+          <a href="https://www.linkedin.com/company/stakater" target="_blank" rel="noopener noreferrer" class="btn-secondary">Follow on LinkedIn</a>
+          <a href="/blog" class="btn-ghost">Read the Blog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

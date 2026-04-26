@@ -1,0 +1,23 @@
+---
+/**
+ * MetricBar - A horizontal strip of key metrics
+ * Used on product + service pages
+ */
+interface Metric { value: string; label: string; sub?: string }
+interface Props { metrics: Metric[] }
+const { metrics } = Astro.props;
+---
+<div class="border-y border-surface-border py-10 my-16 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-brand-red/4 to-transparent"></div>
+  <div class="container-site">
+    <div class={`grid grid-cols-2 lg:grid-cols-${metrics.length} gap-8 lg:gap-0 lg:divide-x lg:divide-surface-border relative z-10`}>
+      {metrics.map((m, i) => (
+        <div class="text-center px-6 animate-on-scroll" style={`animation-delay:${i*100}ms`}>
+          <div class="font-display text-3xl lg:text-4xl font-black text-brand-red mb-1">{m.value}</div>
+          <div class="text-sm font-semibold text-text-primary mb-0.5">{m.label}</div>
+          {m.sub && <div class="text-xs text-text-muted">{m.sub}</div>}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

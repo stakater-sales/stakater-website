@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+
+const partners = [
+  { name: 'Red Hat', tier: 'Premier Partner', description: 'As a Red Hat Premier Partner, we deliver OpenShift implementations, consulting, and managed services with the backing of Red Hat\'s ecosystem.', link: 'https://www.redhat.com' },
+  { name: 'CNCF', tier: 'Member', description: 'Cloud Native Computing Foundation member. We contribute to the CNCF ecosystem through open source projects and community involvement.', link: 'https://cncf.io' },
+];
+---
+<BaseLayout title="Partnerships" description="Stakater's technology partnerships — Red Hat Premier Partner and CNCF member.">
+  <PageHero label="Partnerships" headline="Stronger together" highlightWord="Stronger"
+    subtext="We work with the best in the cloud-native ecosystem to deliver more value to our customers." />
+  <section class="py-16 lg:py-24">
+    <div class="container-site max-w-3xl">
+      <div class="space-y-6 mb-16">
+        {partners.map((p, i) => (
+          <div class="card p-8 animate-on-scroll" style={`animation-delay:${i*120}ms`}>
+            <div class="flex items-start justify-between gap-4 mb-4">
+              <div>
+                <h3 class="font-display text-xl font-black text-text-primary">{p.name}</h3>
+                <span class="tag mt-1">{p.tier}</span>
+              </div>
+            </div>
+            <p class="text-text-secondary leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="card p-8 bg-gradient-to-br from-brand-red/8 to-background-card border-brand-red/20 animate-on-scroll">
+        <h2 class="font-display text-xl font-black text-text-primary mb-3">Become a Partner</h2>
+        <p class="text-text-secondary text-sm mb-6">Are you a cloud, tooling, or services company looking to partner with Stakater? We'd love to talk.</p>
+        <a href="/contact" class="btn-primary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

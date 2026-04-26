@@ -1,0 +1,20 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { getEnablementFeatures, enablementProcess, getEnablementDeliverables } from '../../lib/enablement-template';
+const related = [
+  { label: 'EKS Enablement', href: '/services/eks-enablement', description: 'Amazon Kubernetes' },
+  { label: 'OpenShift Enablement', href: '/services/openshift-enablement', description: 'Red Hat OpenShift' },
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing operations' },
+];
+---
+<ServiceLayout
+  title="AKS Enablement"
+  description="Azure Kubernetes Service consulting from Stakater. Get a production-ready AKS cluster with GitOps, security, observability, and team training."
+  label="Services" headline="AKS done right, from day one" highlightWord="done right"
+  subtext="We help you get the most out of Azure Kubernetes Service — from initial cluster design through to a production-ready platform with GitOps and full observability."
+  badge="Azure"
+  features={getEnablementFeatures('AKS')}
+  process={enablementProcess}
+  deliverables={getEnablementDeliverables('AKS')}
+  {related}
+/>

@@ -1,0 +1,37 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+const features = [
+  { icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', title: '24/7 Monitoring', description: 'Our SRE team monitors your cluster around the clock. Alerts, incidents, and escalations handled before you wake up.' },
+  { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', title: 'Managed Upgrades', description: 'Kubernetes and OpenShift upgrades planned, tested, and executed with zero downtime. Never be surprised by an EOL version.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Security Patching', description: 'CVE monitoring and patching with SLA-bound response times. We patch, you sleep.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Cost Optimisation', description: 'Monthly rightsizing analysis. We identify wasted resources and give you actionable savings recommendations.' },
+  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Incident Response', description: 'P1 response in <15 minutes. War room support, root cause analysis, and post-mortems with action items.' },
+  { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01', title: 'Monthly Health Reports', description: 'Cluster health, security posture, cost breakdown, and recommendations — delivered monthly.' },
+];
+const process = [
+  { step: '01', title: 'Onboarding', description: 'We audit your cluster and set up our monitoring and alerting stack.' },
+  { step: '02', title: 'Baseline', description: 'Establish runbooks, escalation paths, and SLA agreement.' },
+  { step: '03', title: 'Operate', description: 'Continuous monitoring, patching, upgrades, and optimisation.' },
+  { step: '04', title: 'Report', description: 'Monthly health report with metrics, incidents, and recommendations.' },
+];
+const deliverables = [
+  { title: 'SLA-backed incident response', description: 'P1 <15min, P2 <2hr, P3 <24hr response time commitment.' },
+  { title: 'Monthly health report', description: 'Cluster metrics, security posture, cost breakdown, and recommendations.' },
+  { title: 'Managed upgrade plan', description: 'Quarterly upgrade schedule with change windows and rollback plans.' },
+  { title: 'Security posture dashboard', description: 'Real-time CVE tracking and patching status.' },
+];
+const related = [
+  { label: 'KubeDeploy', href: '/services/kube-deploy', description: 'Initial deployment' },
+  { label: 'KubeAudit', href: '/services/kube-audit', description: 'One-time audit' },
+  { label: 'Stakater Cloud', href: '/products/stakater-cloud', description: 'Fully managed option' },
+];
+---
+<ServiceLayout
+  title="KubeCare"
+  description="Keep your Kubernetes clusters healthy with day-2 operations, managed upgrades, security patching, and 24/7 SRE support from Stakater."
+  label="Services" headline="Day-2 Kubernetes, handled" highlightWord="handled"
+  subtext="KubeCare is ongoing managed operations for your Kubernetes clusters — 24/7 monitoring, security patching, upgrades, cost optimisation, and incident response with SLA."
+  {features} {process} {deliverables} {related}
+  ctaHeadline="Ready to hand off cluster operations?"
+  ctaSubtext="Tell us about your cluster and we'll scope a KubeCare plan."
+/>

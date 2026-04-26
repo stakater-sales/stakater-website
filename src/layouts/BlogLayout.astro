@@ -1,0 +1,134 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import AuthorCard from '../components/ui/AuthorCard.astro';
+import CTA from '../components/sections/CTA.astro';
+import { formatDate, readingTime } from '../lib/utils';
+import { getCollection, getEntry } from 'astro:content';
+
+interface Props {
+  title: string;
+  description: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+  author: string;
+  tags: string[];
+  image?: string;
+  body?: string;
+}
+const { title, description, publishedAt, updatedAt, author, tags, image: rawImage, body = '' } = Astro.props;
+
+const image = rawImage || `/og/${encodeURIComponent(title)}.png?title=${encodeURIComponent(title)}&sub=${encodeURIComponent(tags[0] || 'Blog')}`;
+
+// Resolve author
+let authorData: { name: string; role: string; bio: string; avatar?: string; github?: string; linkedin?: string; twitter?: string } | null = null;
+try {
+  const entry = await getEntry('authors', author);
+  if (entry) authorData = entry.data;
+} catch {}
+
+const readTime = readingTime(body);
+---
+
+<BaseLayout {title} {description} {image} type="article" {publishedAt} author={authorData?.name || author} {tags}>
+  <article class="py-16 lg:py-24">
+    <div class="container-site">
+      <div class="max-w-3xl mx-auto">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-text-muted font-mono mb-8">
+          <a href="/" class="hover:text-text-primary transition-colors">Home</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-text-primary transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-text-secondary truncate">{title}</span>
+        </nav>
+
+        <!-- Tags -->
+        <div class="flex flex-wrap gap-2 mb-6">
+          {tags.map(tag => (
+            <a href={`/blog/tag/${tag}`} class="tag hover:bg-brand-red/20 transition-colors">{tag}</a>
+          ))}
+        </div>
+
+        <!-- Title -->
+        <h1 class="font-display text-display-lg font-black text-text-primary mb-6 leading-[1.05]">{title}</h1>
+
+        <!-- Meta row -->
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted mb-10 pb-10 border-b border-surface-border">
+          {authorData ? (
+            <AuthorCard
+              name={authorData.name}
+              role={authorData.role}
+              bio=""
+              avatar={authorData.avatar}
+              size="sm"
+            />
+          ) : (
+            <span class="font-mono">{author}</span>
+          )}
+          <span class="w-px h-4 bg-surface-border"></span>
+          <time datetime={publishedAt.toISOString()}>{formatDate(publishedAt)}</time>
+          {updatedAt && <span class="text-xs">· Updated {formatDate(updatedAt)}</span>}
+          <span class="w-px h-4 bg-surface-border"></span>
+          <span class="font-mono">{readTime}</span>
+        </div>
+
+        <!-- Hero image -->
+        {image && (
+          <div class="aspect-video rounded-xl overflow-hidden mb-10 border border-surface-border">
+            <img src={image} alt={title} class="w-full h-full object-cover" />
+          </div>
+        )}
+
+        <!-- Body content -->
+        <div class="prose-stakater">
+          <slot />
+        </div>
+
+        <!-- Author card bottom -->
+        {authorData && (
+          <div class="mt-16 pt-10 border-t border-surface-border animate-on-scroll">
+            <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-4">Written by</p>
+            <AuthorCard
+              name={authorData.name}
+              role={authorData.role}
+              bio={authorData.bio}
+              avatar={authorData.avatar}
+              github={authorData.github}
+              linkedin={authorData.linkedin}
+              twitter={authorData.twitter}
+              size="lg"
+            />
+          </div>
+        )}
+
+        <!-- Share + back -->
+        <div class="mt-10 flex items-center justify-between animate-on-scroll">
+          <a href="/blog" class="btn-ghost text-sm">
+            <svg class="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+            All posts
+          </a>
+          <div class="flex items-center gap-2 text-sm text-text-muted">
+            <span>Share:</span>
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(`https://stakater.com/blog`)}`}
+               target="_blank" rel="noopener noreferrer"
+               class="hover:text-text-primary transition-colors">Twitter/X</a>
+            <span>·</span>
+            <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://stakater.com/blog`)}`}
+               target="_blank" rel="noopener noreferrer"
+               class="hover:text-text-primary transition-colors">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <CTA
+    headline="Enjoyed this post?"
+    subtext="Talk to us about your Kubernetes setup."
+    primaryLabel="Discuss your Setup"
+    secondaryLabel="Browse Case Studies"
+    secondaryHref="/case-studies"
+  />
+</BaseLayout>

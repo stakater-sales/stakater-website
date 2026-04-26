@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+<BaseLayout title="Sustainability" description="Stakater aligns with UN Sustainable Development Goals 9 and 13. Technology and climate responsibility are not in conflict.">
+  <PageHero
+    label="Sustainability"
+    headline="Technology and climate are not in conflict"
+    highlightWord="not in conflict"
+    subtext="We align our efforts with UN SDGs 9 (Industry, Innovation, and Infrastructure) and 13 (Climate Action) as a practical guide for how we work and what we build."
+  />
+  <section class="py-16 lg:py-24">
+    <div class="container-site max-w-3xl">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        {[
+          { sdg: 'SDG 9', title: 'Industry, Innovation & Infrastructure', description: 'We help enterprises modernise infrastructure to be more efficient, resilient, and scalable — reducing the energy and resource footprint of legacy systems.', color: 'from-orange-500/10 to-background-card border-orange-500/20' },
+          { sdg: 'SDG 13', title: 'Climate Action', description: 'We actively choose cloud providers and infrastructure that prioritise renewable energy. We encourage customers to do the same as part of our advisory work.', color: 'from-green-500/10 to-background-card border-green-500/20' },
+        ].map(s => (
+          <div class={`card p-8 bg-gradient-to-br ${s.color} animate-on-scroll`}>
+            <p class="tag mb-4">{s.sdg}</p>
+            <h3 class="font-display text-lg font-black text-text-primary mb-3">{s.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">{s.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="prose-stakater animate-on-scroll">
+        <h2>How we put this into practice</h2>
+        <p>Sustainability at Stakater isn't a page on our website — it's embedded in how we make decisions. When recommending infrastructure to customers, we factor in the carbon footprint of different cloud regions. When building our own systems, we choose providers that run on renewable energy.</p>
+        <p>We also believe that helping enterprises retire legacy, inefficient infrastructure — VMware sprawl, over-provisioned bare metal, idle servers — has a direct positive environmental impact. Kubernetes and cloud-native infrastructure, done right, uses significantly fewer resources to run the same workloads.</p>
+        <p>This isn't about offsetting. It's about building the right things, the right way, from the start.</p>
+      </div>
+    </div>
+  </section>
+  <CTA headline="Questions about our sustainability approach?" subtext="We're happy to discuss how sustainability factors into our advisory and architecture work." />
+</BaseLayout>

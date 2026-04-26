@@ -1,0 +1,101 @@
+---
+import { getRepoStats, formatCount } from '../../lib/github';
+
+const reloader = await getRepoStats('stakater', 'Reloader');
+const reloaderStars = reloader.stars > 0 ? `${formatCount(reloader.stars)} GitHub stars` : '10k+ GitHub stars';
+
+const products = [
+  {
+    tag: 'Managed Platform',
+    label: 'Stakater Cloud',
+    href: '/products/stakater-cloud',
+    headline: 'Managed OpenShift & Kubernetes — built for governance and scale',
+    description: 'Run OpenShift and Kubernetes on a managed cloud with full governance, multi-tenancy, and compliance baked in. No VMware required.',
+    highlights: ['SOC2 compliant', 'Multi-tenant by default', 'GitOps-native', '24/7 operations'],
+    accent: true,
+  },
+  {
+    tag: 'SCO',
+    label: 'Cloud Orchestrator',
+    href: '/products/cloud-orchestrator',
+    headline: 'Run your own cloud for VMs and Kubernetes. Without VMware.',
+    description: 'Stakater Cloud Orchestrator lets you automate and control your own cloud infrastructure — VMs, Kubernetes, networking — with complete ownership.',
+    highlights: ['VMware exit path', 'Self-hosted', 'Full automation', 'Cost control'],
+    accent: false,
+  },
+  {
+    tag: 'MTO',
+    label: 'Multi-Tenant Operator',
+    href: '/products/mto',
+    headline: 'Enterprise-grade multi-tenancy across Kubernetes and OpenShift',
+    description: 'Enforce tenant isolation, resource quotas, RBAC, and network policies at scale. The operator that keeps clusters clean and teams productive.',
+    highlights: ['Namespace isolation', 'Resource quotas', 'RBAC enforcement', 'Self-service tenants'],
+    accent: false,
+  },
+  {
+    tag: 'Open Source+',
+    label: 'Reloader Enterprise',
+    href: '/products/reloader',
+    headline: 'Auto-reload workloads when ConfigMaps or Secrets change',
+    description: 'The operator trusted by thousands of Kubernetes clusters worldwide. Reloader Enterprise adds enterprise support, SLAs, and advanced configuration.',
+    highlights: [reloaderStars, 'Zero-downtime reloads', 'Enterprise SLA', 'Multi-namespace'],
+    accent: false,
+  },
+];
+---
+
+<section class="py-24 lg:py-32 relative">
+  <div class="container-site">
+    <!-- Section header -->
+    <div class="mb-16 animate-on-scroll">
+      <p class="section-label mb-3">Products</p>
+      <h2 class="font-display text-display-lg font-black text-text-primary max-w-2xl">
+        Built for teams running<br />
+        <span class="text-brand-red">Kubernetes seriously</span>
+      </h2>
+    </div>
+
+    <!-- Products grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {products.map((product, i) => (
+        <a
+          href={product.href}
+          class={`group relative rounded-2xl p-8 border transition-all duration-300 overflow-hidden animate-on-scroll
+            ${product.accent
+              ? 'bg-gradient-to-br from-brand-red/10 to-background-card border-brand-red/30 hover:border-brand-red/60'
+              : 'bg-background-card border-surface-border hover:border-surface-border-strong'
+            }`}
+          style={`animation-delay: ${i * 100}ms`}
+        >
+          {/* Subtle glow on hover */}
+          {product.accent && (
+            <div class="absolute inset-0 bg-gradient-to-br from-brand-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          )}
+
+          <div class="relative z-10">
+            <div class="flex items-start justify-between mb-6">
+              <span class="tag">{product.tag}</span>
+              <svg class="w-5 h-5 text-text-muted group-hover:text-brand-red group-hover:translate-x-1 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+              </svg>
+            </div>
+
+            <h3 class="font-display text-display-sm font-black text-text-primary mb-3 group-hover:text-brand-red transition-colors">
+              {product.label}
+            </h3>
+            <p class="text-sm text-text-muted font-semibold mb-3 leading-snug">{product.headline}</p>
+            <p class="text-text-secondary text-sm leading-relaxed mb-6">{product.description}</p>
+
+            <div class="flex flex-wrap gap-2">
+              {product.highlights.map((h) => (
+                <span class="text-xs px-2.5 py-1 rounded-md bg-surface border border-surface-border text-text-secondary font-mono">
+                  {h}
+                </span>
+              ))}
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

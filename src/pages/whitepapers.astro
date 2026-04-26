@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+---
+<BaseLayout title="Whitepapers" description="In-depth technical guides and whitepapers on Kubernetes, platform engineering, and cloud-native architecture from Stakater.">
+  <PageHero label="Whitepapers" headline="Deep technical guides" highlightWord="Deep"
+    subtext="In-depth content on Kubernetes architecture, platform engineering, and cloud-native patterns — from teams who run this in production." />
+  <section class="py-16 lg:py-24">
+    <div class="container-site max-w-3xl">
+      <div class="card p-12 text-center animate-on-scroll">
+        <p class="font-display text-xl font-black text-text-primary mb-2">Whitepapers coming soon</p>
+        <p class="text-text-secondary mb-6">We're publishing in-depth guides on Kubernetes multi-tenancy, platform engineering, and VMware migration. Subscribe to be notified.</p>
+        <div class="flex justify-center gap-4">
+          <a href="/blog" class="btn-primary">Read the Blog</a>
+          <a href="/contact" class="btn-secondary">Get notified</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

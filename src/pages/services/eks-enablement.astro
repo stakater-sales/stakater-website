@@ -1,0 +1,20 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { getEnablementFeatures, enablementProcess, getEnablementDeliverables } from '../../lib/enablement-template';
+const related = [
+  { label: 'AKS Enablement', href: '/services/aks-enablement', description: 'Azure Kubernetes' },
+  { label: 'Rancher Enablement', href: '/services/rancher-enablement', description: 'Multi-cloud management' },
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing operations' },
+];
+---
+<ServiceLayout
+  title="EKS Enablement"
+  description="Amazon EKS consulting from Stakater. Production-ready EKS with Fargate, GitOps, security hardening, and team enablement."
+  label="Services" headline="EKS built for production scale" highlightWord="production scale"
+  subtext="We help teams get Amazon EKS production-ready fast — cluster configuration, Fargate node groups, GitOps pipelines, and security hardening included."
+  badge="AWS"
+  features={getEnablementFeatures('EKS')}
+  process={enablementProcess}
+  deliverables={getEnablementDeliverables('EKS')}
+  {related}
+/>

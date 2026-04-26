@@ -1,0 +1,20 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { getEnablementFeatures, enablementProcess, getEnablementDeliverables } from '../../lib/enablement-template';
+const related = [
+  { label: 'AKS Enablement', href: '/services/aks-enablement', description: 'Azure Kubernetes' },
+  { label: 'OpenShift Enablement', href: '/services/openshift-enablement', description: 'Red Hat OpenShift' },
+  { label: 'Cloud Orchestrator', href: '/products/cloud-orchestrator', description: 'Own your infra' },
+];
+---
+<ServiceLayout
+  title="Rancher Enablement"
+  description="Rancher multi-cluster management consulting from Stakater. Manage Kubernetes clusters across clouds with Rancher, GitOps, and full security."
+  label="Services" headline="Rancher for multi-cluster management" highlightWord="multi-cluster management"
+  subtext="We help enterprises adopt Rancher for managing Kubernetes clusters across on-prem and multiple clouds — with GitOps, security, and team enablement."
+  badge="SUSE Rancher"
+  features={getEnablementFeatures('Rancher')}
+  process={enablementProcess}
+  deliverables={getEnablementDeliverables('Rancher')}
+  {related}
+/>

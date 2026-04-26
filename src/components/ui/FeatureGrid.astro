@@ -1,0 +1,33 @@
+---
+/**
+ * FeatureGrid - Reusable feature/benefit grid
+ * Pass features as an array of { icon?, title, description }
+ * cols: 2 | 3 | 4
+ */
+interface Feature {
+  icon?: string; // SVG path d= value
+  title: string;
+  description: string;
+}
+interface Props {
+  features: Feature[];
+  cols?: 2 | 3 | 4;
+}
+const { features, cols = 3 } = Astro.props;
+const colClass = { 2: 'sm:grid-cols-2', 3: 'sm:grid-cols-2 lg:grid-cols-3', 4: 'sm:grid-cols-2 lg:grid-cols-4' };
+---
+<div class={`grid grid-cols-1 ${colClass[cols]} gap-6`}>
+  {features.map((f, i) => (
+    <div class="card p-6 animate-on-scroll" style={`animation-delay:${i*80}ms`}>
+      {f.icon && (
+        <div class="w-10 h-10 rounded-lg bg-brand-red/10 border border-brand-red/20 flex items-center justify-center mb-4">
+          <svg class="w-5 h-5 text-brand-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d={f.icon}/>
+          </svg>
+        </div>
+      )}
+      <h3 class="font-display text-base font-bold text-text-primary mb-2">{f.title}</h3>
+      <p class="text-sm text-text-secondary leading-relaxed">{f.description}</p>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+
+const perks = [
+  { icon: '🌍', title: 'Remote-First', description: 'Work from anywhere in Europe. We have a Stockholm HQ but operate distributed.' },
+  { icon: '📚', title: 'Learning Budget', description: 'Annual budget for conferences, certifications, and courses. We invest in your growth.' },
+  { icon: '🛠️', title: 'Real Engineering', description: 'You work on real Kubernetes problems in production environments. No fake projects.' },
+  { icon: '🤝', title: 'Open Source Time', description: '20% of your time can go to open source contributions — including our own projects.' },
+  { icon: '⚡', title: 'Impact from Day 1', description: 'Small team means your work matters immediately. No 6-month onboarding ramp.' },
+  { icon: '🏥', title: 'Good Benefits', description: 'Competitive salary, health insurance, pension, and hardware budget.' },
+];
+---
+
+<BaseLayout title="Careers" description="Join Stakater's team of Kubernetes engineers. Remote-first, open source culture, real engineering problems.">
+  <PageHero
+    label="Careers"
+    headline="Join the Kubernetes Ninjas"
+    highlightWord="Kubernetes Ninjas"
+    subtext="We're a small, focused team of platform engineers who love Kubernetes, open source, and solving hard problems for real customers."
+    primaryCta={{ label: 'See Open Roles', href: '#open-roles' }}
+  />
+
+  <section class="py-16 lg:py-24">
+    <div class="container-site">
+      <div class="mb-12 animate-on-scroll">
+        <p class="section-label mb-3">Why Stakater</p>
+        <h2 class="font-display text-display-md font-black text-text-primary">Built for engineers</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+        {perks.map((p, i) => (
+          <div class="card p-6 animate-on-scroll" style={`animation-delay:${i*80}ms`}>
+            <div class="text-3xl mb-4">{p.icon}</div>
+            <h3 class="font-display text-base font-bold text-text-primary mb-2">{p.title}</h3>
+            <p class="text-sm text-text-secondary leading-relaxed">{p.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div id="open-roles" class="animate-on-scroll">
+        <p class="section-label mb-3">Open Roles</p>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-8">Current openings</h2>
+        <div class="card p-12 text-center">
+          <p class="text-text-muted text-lg mb-2">No open roles right now.</p>
+          <p class="text-text-muted text-sm mb-6">We hire slowly and deliberately. If you're exceptional, reach out anyway.</p>
+          <a href="/contact" class="btn-secondary">Send us your CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA headline="Think you'd fit in?" subtext="We're always interested in exceptional engineers. Reach out even if there's no open role." primaryLabel="Get in Touch" />
+</BaseLayout>

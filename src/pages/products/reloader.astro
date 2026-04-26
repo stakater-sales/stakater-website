@@ -1,0 +1,43 @@
+---
+import ProductLayout from '../../layouts/ProductLayout.astro';
+import { getRepoStats, formatCount } from '../../lib/github';
+
+const stats = await getRepoStats('stakater', 'Reloader');
+
+const features = [
+  { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', title: 'Automatic Config Reload', description: 'Watches ConfigMaps and Secrets. When they change, Reloader automatically rolls the affected Deployments, StatefulSets, and DaemonSets.' },
+  { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Zero-Downtime Rolling Updates', description: 'Uses Kubernetes native rolling update strategy. No pods are terminated until replacements are ready.' },
+  { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2', title: 'Annotation-Based Control', description: 'Simple annotations on your workload tell Reloader exactly which configs to watch. No YAML sprawl, no complex config.' },
+  { icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9', title: 'Multi-Namespace Support', description: 'Watch configs across namespaces or restrict to specific ones. Flexible scope control for multi-tenant environments.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Enterprise SLA (Enterprise)', description: 'Reloader Enterprise adds a commercial SLA, priority support, and guaranteed patch response times.' },
+  { icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z', title: 'Helm & Operator Hub Ready', description: 'Install via Helm chart or directly from OperatorHub. Running in minutes, not hours.' },
+];
+
+const metrics = [
+  { value: stats.stars > 0 ? formatCount(stats.stars) : '8.7k+', label: 'GitHub Stars', sub: 'Community trust' },
+  { value: stats.forks > 0 ? formatCount(stats.forks) : '1.1k+', label: 'Forks', sub: 'Active ecosystem' },
+  { value: '0', label: 'Downtime', sub: 'During config reloads' },
+  { value: '5min', label: 'To Install', sub: 'Via Helm or OLM' },
+];
+
+const useCases = [
+  { title: 'External Secrets integration', description: 'Pair Reloader with External Secrets Operator — when a secret rotates in Vault or AWS SM, Reloader rolls your pods automatically.' },
+  { title: 'Feature flag changes', description: 'Store feature flags in ConfigMaps. Change a flag, Reloader rolls affected pods. Zero manual intervention.' },
+  { title: 'Certificate rotation', description: 'TLS certs stored in Secrets. When cert-manager rotates them, Reloader ensures your workloads pick up the new cert.' },
+  { title: 'Multi-tenant platforms', description: 'Each tenant has their own configs. Reloader watches all of them and reloads only what changed — scoped per namespace.' },
+];
+---
+
+<ProductLayout
+  title="Reloader Enterprise"
+  description="Auto-reload Kubernetes workloads when ConfigMaps or Secrets change. 8,700+ GitHub stars. Zero-downtime, annotation-driven, battle-tested."
+  label="Products"
+  headline={`The Kubernetes operator with ${stats.stars > 0 ? formatCount(stats.stars) : '8.7k+'} stars`}
+  highlightWord={`${stats.stars > 0 ? formatCount(stats.stars) : '8.7k+'} stars`}
+  subtext="Reloader watches your ConfigMaps and Secrets. When they change, it automatically rolls the workloads that depend on them — with zero downtime and zero manual intervention."
+  badge="Open Source+"
+  tag="Reloader"
+  primaryCta={{ label: 'Get Enterprise Support', href: '/contact' }}
+  secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/stakater/Reloader' }}
+  {features} {metrics} {useCases}
+/>

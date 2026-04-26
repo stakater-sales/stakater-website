@@ -1,0 +1,20 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+import { getEnablementFeatures, enablementProcess, getEnablementDeliverables } from '../../lib/enablement-template';
+const related = [
+  { label: 'Stakater Cloud', href: '/products/stakater-cloud', description: 'Managed OpenShift' },
+  { label: 'Multi-Tenant Operator', href: '/products/mto', description: 'Enterprise multi-tenancy' },
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing operations' },
+];
+---
+<ServiceLayout
+  title="OpenShift Enablement"
+  description="Red Hat OpenShift consulting from Stakater, a Red Hat Premier Partner. Get OpenShift production-ready with GitOps, multi-tenancy, and enterprise security."
+  label="Services" headline="OpenShift from a Red Hat Premier Partner" highlightWord="Red Hat Premier Partner"
+  subtext="As a Red Hat Premier Partner, we help enterprises get the most out of OpenShift — from initial deployment through platform engineering and day-2 operations."
+  badge="Red Hat Premier Partner"
+  features={getEnablementFeatures('OpenShift')}
+  process={enablementProcess}
+  deliverables={getEnablementDeliverables('OpenShift')}
+  {related}
+/>

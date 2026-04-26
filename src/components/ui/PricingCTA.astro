@@ -1,0 +1,29 @@
+---
+/**
+ * PricingCTA - "Contact Us" pricing section for every product
+ * Consistent look, configurable message
+ */
+interface Props {
+  productName: string;
+  tagline?: string;
+}
+const { productName, tagline = 'Pricing is tailored to your team size and requirements.' } = Astro.props;
+---
+<section class="py-16 border-t border-surface-border">
+  <div class="container-site">
+    <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+      <p class="section-label mb-3">Pricing</p>
+      <h2 class="font-display text-display-md font-black text-text-primary mb-4">
+        Get pricing for<br/>
+        <span class="text-brand-red">{productName}</span>
+      </h2>
+      <p class="text-text-secondary mb-8">{tagline} Talk to us and we'll build the right plan.</p>
+      <a href="/contact" class="btn-primary text-base px-8 py-3.5 shadow-glow-red-sm">
+        Contact Us for Pricing
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

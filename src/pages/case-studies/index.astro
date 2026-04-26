@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyCard from '../../components/case-studies/CaseStudyCard.astro';
+import { getCollection } from 'astro:content';
+
+const caseStudies = (await getCollection('case-studies', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+const featured = caseStudies.filter(c => c.data.featured);
+const rest = caseStudies.filter(c => !c.data.featured);
+---
+
+<BaseLayout title="Case Studies" description="Real outcomes from real customers. See how Stakater helps enterprises accelerate their Kubernetes journey.">
+  <div class="py-16 lg:py-24">
+    <div class="container-site">
+      <div class="mb-16 animate-on-scroll">
+        <p class="section-label mb-3">Case Studies</p>
+        <h1 class="font-display text-display-lg font-black text-text-primary mb-4">
+          Real outcomes.<br />
+          <span class="text-brand-red">Measured results.</span>
+        </h1>
+        <p class="text-text-secondary max-w-xl">How enterprise teams ship faster, reduce costs, and scale confidently with Stakater's Kubernetes expertise.</p>
+      </div>
+
+      {featured.length > 0 && (
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {featured.map(cs => (
+            <CaseStudyCard
+              company={cs.data.company} industry={cs.data.industry} initials={cs.data.initials}
+              logo={cs.data.logo} outcome={cs.data.outcome} metrics={cs.data.metrics}
+              services={cs.data.services} href={`/case-studies/${cs.slug}`} featured={true}
+            />
+          ))}
+        </div>
+      )}
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {rest.map(cs => (
+          <CaseStudyCard
+            company={cs.data.company} industry={cs.data.industry} initials={cs.data.initials}
+            logo={cs.data.logo} outcome={cs.data.outcome} metrics={cs.data.metrics}
+            services={cs.data.services} href={`/case-studies/${cs.slug}`}
+          />
+        ))}
+      </div>
+    </div>
+  </div>
+</BaseLayout>

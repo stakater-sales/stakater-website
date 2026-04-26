@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+import CTA from '../components/sections/CTA.astro';
+import FeatureGrid from '../components/ui/FeatureGrid.astro';
+import { getTotalStakaterStars, formatTotalStars } from '../lib/github';
+
+const totalStars = await getTotalStakaterStars();
+const starsDisplay = totalStars > 0 ? formatTotalStars(totalStars) : '11k+';
+
+const values = [
+  { icon: 'M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4', title: 'Open Source First', description: 'We build in the open, share what we learn, and give back. Reloader and Forecastle are used by thousands of teams worldwide.' },
+  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', title: 'Engineers, not consultants', description: 'Everyone at Stakater has shipped production Kubernetes. We talk to customers from experience, not from slide decks.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Outcomes, not outputs', description: 'We measure success by what your team can do after working with us — not by how many deliverables we shipped.' },
+  { icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z', title: 'Sustainability Commitment', description: 'We align our work with UN SDGs 9 and 13. Technology and climate responsibility are not in conflict.' },
+];
+---
+
+<BaseLayout title="About Us" description="Stakater is a platform engineering company founded in Stockholm. Open source roots, enterprise delivery, 100+ customers across Europe and beyond.">
+  <PageHero
+    label="About"
+    headline="Open source roots. Enterprise delivery."
+    highlightWord="Enterprise delivery."
+    subtext="We're a team of Kubernetes engineers based in Stockholm, Sweden. We help enterprises ship faster with less operational complexity — and we build open source tools that the community uses too."
+  />
+
+  <section class="py-16 lg:py-24">
+    <div class="container-site">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+        <div class="animate-on-scroll">
+          <p class="section-label mb-4">Our Story</p>
+          <h2 class="font-display text-display-md font-black text-text-primary mb-6">
+            Started with a problem.<br />
+            <span class="text-brand-red">Stayed for the craft.</span>
+          </h2>
+          <div class="space-y-4 text-text-secondary leading-relaxed">
+            <p>Stakater started with a simple observation: most enterprises were struggling with Kubernetes — not because it's inherently hard, but because there was no clear path from "we have a cluster" to "we're running production workloads confidently."</p>
+            <p>We built the tools, the practices, and the services to fix that. Over time, our open source work attracted a community. Our consulting attracted enterprise customers. Our managed platform attracted teams who wanted the outcome without the overhead.</p>
+            <p>Today we're a Red Hat Premier Partner, running 100+ customers across Europe, with open source projects trusted by thousands of teams worldwide.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 animate-on-scroll delay-200">
+          {[
+            { value: '100+', label: 'Enterprise Customers' },
+            { value: starsDisplay, label: 'GitHub Stars' },
+            { value: '2015', label: 'Founded' },
+            { value: 'Stockholm', label: 'Headquarters' },
+          ].map(s => (
+            <div class="card p-6 text-center">
+              <div class="font-display text-3xl font-black text-brand-red mb-1">{s.value}</div>
+              <div class="text-sm text-text-secondary">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-12 animate-on-scroll">
+        <p class="section-label mb-3">Values</p>
+        <h2 class="font-display text-display-md font-black text-text-primary">How we work</h2>
+      </div>
+      <FeatureGrid features={values} cols={2} />
+    </div>
+  </section>
+
+  <!-- Partnerships -->
+  <section class="py-16 border-t border-surface-border">
+    <div class="container-site">
+      <div class="text-center animate-on-scroll">
+        <p class="section-label mb-6">Partners</p>
+        <div class="flex items-center justify-center gap-12 flex-wrap">
+          <div class="card px-8 py-5">
+            <p class="font-display font-black text-text-primary">Red Hat</p>
+            <p class="text-xs text-text-muted font-mono">Premier Partner</p>
+          </div>
+          <div class="card px-8 py-5">
+            <p class="font-display font-black text-text-primary">CNCF</p>
+            <p class="text-xs text-text-muted font-mono">Member</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA headline="Work with the Kubernetes Ninjas." subtext="Tell us about your setup and we'll find the fastest path forward." />
+</BaseLayout>

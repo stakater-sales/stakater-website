@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/ui/PageHero.astro';
+---
+<BaseLayout title="Privacy Policy" description="Stakater AB privacy policy — how we collect, use, and protect your data." noindex={true}>
+  <PageHero label="Legal" headline="Privacy Policy" subtext="Last updated: April 2025" />
+  <section class="py-12 lg:py-16">
+    <div class="container-site max-w-3xl">
+      <div class="prose-stakater animate-on-scroll">
+        <h2>Who we are</h2>
+        <p>Stakater AB, David Bagares gata 26A, 111 38 Stockholm, Sweden is the data controller for personal data processed through stakater.com.</p>
+        <h2>What data we collect</h2>
+        <p>We collect data you provide directly — such as name, email, and company when you contact us via our forms. We also collect analytics data (page views, referrer, device type) through Google Analytics.</p>
+        <h2>How we use your data</h2>
+        <p>Contact form submissions are used to respond to your enquiry and may be used to follow up on our services. Analytics data is used to improve our website. We do not sell your data to third parties.</p>
+        <h2>Data retention</h2>
+        <p>Contact form data is retained for as long as necessary to fulfil your enquiry plus a reasonable period thereafter. Analytics data is retained per Google Analytics default settings.</p>
+        <h2>Your rights</h2>
+        <p>Under GDPR you have the right to access, correct, delete, and port your data. To exercise these rights, email us at privacy@stakater.com.</p>
+        <h2>Cookies</h2>
+        <p>We use Google Analytics which sets cookies for analytics purposes. You may opt out via your browser settings or a Google Analytics opt-out extension.</p>
+        <h2>Contact</h2>
+        <p>For privacy questions: privacy@stakater.com</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import ServiceLayout from '../../layouts/ServiceLayout.astro';
+const features = [
+  { icon: 'M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01', title: 'Cluster Provisioning', description: 'Production-ready cluster on your chosen cloud or on-prem. Networking, node pools, and ingress from day one.' },
+  { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', title: 'GitOps Pipeline Setup', description: 'ArgoCD or Flux configured with your repos. Environments, promotion gates, and rollback — all wired up.' },
+  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Security Hardening', description: 'CIS benchmark hardening, pod security standards, secrets management, and image scanning in the pipeline.' },
+  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Observability Stack', description: 'Prometheus, Grafana, Alertmanager, and Loki deployed and configured. You can see your system from day one.' },
+  { icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', title: 'Multi-Tenancy (MTO)', description: 'Multi-Tenant Operator deployed and configured for your team structure. Self-service namespaces from day one.' },
+  { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', title: 'Team Onboarding', description: 'Your engineers learn the platform hands-on. Not a PDF. Actual pairing sessions and runbooks.' },
+];
+const process = [
+  { step: '01', title: 'Assessment', description: 'Understand your workloads, team, cloud, and timeline.' },
+  { step: '02', title: 'Infrastructure', description: 'Provision cluster, networking, storage, and ingress.' },
+  { step: '03', title: 'Platform Layer', description: 'GitOps, observability, security, multi-tenancy.' },
+  { step: '04', title: 'Go Live', description: 'Migrate first workload, validate, and hand over.' },
+];
+const deliverables = [
+  { title: 'Production-ready Kubernetes cluster', description: 'Fully configured, hardened, and HA on your chosen infrastructure.' },
+  { title: 'GitOps pipeline', description: 'ArgoCD or Flux connected to your repos with environment promotion.' },
+  { title: 'Observability dashboards', description: 'Pre-built Grafana dashboards for cluster health, workload performance, and cost.' },
+  { title: 'Runbooks', description: 'Day-2 operations documentation your team can follow without us.' },
+];
+const related = [
+  { label: 'KubeDesign', href: '/services/kube-design', description: 'Architecture first' },
+  { label: 'KubeCare', href: '/services/kube-care', description: 'Ongoing operations' },
+  { label: 'Platform Engineering', href: '/services/platform-engineering', description: 'Full IDP buildout' },
+];
+---
+<ServiceLayout
+  title="KubeDeploy"
+  description="Deploy a production-ready Kubernetes platform end-to-end. Cluster, GitOps, security, observability, and multi-tenancy — done in weeks, not months."
+  label="Services" headline="Production Kubernetes, end to end" highlightWord="end to end"
+  subtext="KubeDeploy is a fixed-scope engagement that gets you a fully production-ready Kubernetes platform — cluster, GitOps, security, observability, and team onboarding."
+  {features} {process} {deliverables} {related}
+/>

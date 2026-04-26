@@ -1,0 +1,6 @@
+# Cloudflare Pages redirect rules
+# Format: /old-path  /new-path  301
+# Add redirects below when migrating pages from old Wix site
+
+# Example:
+# /old-wix-page  /new-astro-page  301
