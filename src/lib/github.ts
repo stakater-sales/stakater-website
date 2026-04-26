@@ -43,6 +43,27 @@ export function formatCount(count: number): string {
   return count.toString();
 }
 
+export function formatDockerPulls(count: number): string {
+  if (count >= 1_000_000_000) return `${Math.floor(count / 1_000_000_000)}B+`;
+  if (count >= 1_000_000) return `${Math.floor(count / 1_000_000)}M+`;
+  if (count >= 1_000) return `${Math.floor(count / 1_000)}k+`;
+  return `${count}+`;
+}
+
+export async function getDockerPullCount(org: string, repo: string): Promise<number> {
+  try {
+    const response = await fetch(`https://hub.docker.com/v2/repositories/${org}/${repo}/`, {
+      headers: { 'User-Agent': 'stakater-website' },
+    });
+    if (!response.ok) throw new Error(`Docker Hub API error: ${response.status}`);
+    const data = await response.json();
+    return data.pull_count ?? 0;
+  } catch (error) {
+    console.warn(`Failed to fetch Docker Hub stats for ${org}/${repo}:`, error);
+    return 0;
+  }
+}
+
 export function formatTotalStars(count: number): string {
   if (count >= 1000) return `${Math.floor(count / 1000)}k+`;
   return `${count}+`;

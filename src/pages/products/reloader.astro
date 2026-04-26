@@ -1,9 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getRepoStats, formatCount } from '../../lib/github';
+import { getRepoStats, getDockerPullCount, formatCount, formatDockerPulls } from '../../lib/github';
 
-const stats = await getRepoStats('stakater', 'Reloader');
-const starCount = stats.stars > 0 ? formatCount(stats.stars) : '9.9k';
+const [stats, pullCount] = await Promise.all([
+  getRepoStats('stakater', 'Reloader'),
+  getDockerPullCount('stakater', 'reloader'),
+]);
+
+const starCount = stats.stars > 0 ? `${formatCount(stats.stars)}+` : '9.9k+';
+const dockerPulls = pullCount > 0 ? formatDockerPulls(pullCount) : '24B+';
 
 const comparisonRows = [
   { capability: 'Full Reloader functionality',                          oss: true,  ent: true  },
@@ -175,10 +180,10 @@ const faqs = [
       <!-- Hero stats -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-3xl mx-auto animate-on-scroll delay-400">
         {[
-          { value: '24B+',           label: 'Docker Pulls' },
-          { value: `${starCount}+`,  label: 'GitHub Stars' },
-          { value: '7+',             label: 'Years in Production' },
-          { value: 'Drop-in',        label: 'Replacement' },
+          { value: dockerPulls, label: 'Docker Pulls' },
+          { value: starCount,   label: 'GitHub Stars' },
+          { value: '7+',        label: 'Years in Production' },
+          { value: 'Drop-in',   label: 'Replacement' },
         ].map(s => (
           <div class="card p-5 text-center">
             <div class="font-display text-2xl font-black text-brand-red mb-1">{s.value}</div>
