@@ -1,40 +1,685 @@
 ---
-import ProductLayout from '../../layouts/ProductLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const features = [
-  { icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10', title: 'Namespace-Level Isolation', description: 'Enforce strict boundaries between tenants at the namespace level. No shared resources, no noisy neighbours.' },
-  { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'RBAC at Scale', description: 'Define once, apply everywhere. Tenant RBAC templates that propagate automatically as namespaces are created.' },
-  { icon: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z', title: 'Resource Quotas & Limits', description: 'Set CPU, memory, and storage quotas per tenant. Prevent any one team from starving the cluster.' },
-  { icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9', title: 'Network Policy Automation', description: 'Default-deny network policies applied per tenant automatically. Egress and ingress controls without manual toil.' },
-  { icon: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z', title: 'Self-Service Tenant Provisioning', description: 'Developers request namespaces via GitOps. Admins approve. MTO handles the rest — no manual kubectl.' },
-  { icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', title: 'OpenShift & Kubernetes', description: 'Native support for both OpenShift and upstream Kubernetes. CRD-based, so it fits your existing GitOps workflow.' },
+const caseStudies = [
+  {
+    company: 'Enento',
+    industry: 'Credit & Business Intelligence · Nordic',
+    platform: 'Amazon EKS',
+    pillars: ['Tenancy', 'Templates', 'FinOps', 'Compliance'],
+    challenge: 'Monolith migration across four Nordic markets with GDPR isolation between data domains and no per-team cost visibility.',
+    outcomes: [
+      'Environment setup: days → hours',
+      'GDPR compliance enforced by default',
+      'Cloud spend accountable per team',
+    ],
+  },
+  {
+    company: 'CSN',
+    industry: 'Public Sector · Sweden',
+    platform: 'OpenShift · On-Prem',
+    pillars: ['Tenancy', 'Hibernation', 'FinOps', 'Extensions', 'Compliance'],
+    challenge: 'Non-production environments running 24/7, no per-team cost visibility, each team wiring its own toolchain, governance managed through manual checklists.',
+    outcomes: [
+      'Non-prod compute cost significantly reduced',
+      'Spend visible per team',
+      'Audit-ready by default',
+    ],
+  },
+  {
+    company: 'Coop',
+    industry: 'Retail · Cooperative · Nordic',
+    platform: 'Google GKE',
+    pillars: ['Tenancy', 'FinOps', 'Templates'],
+    challenge: 'Multiple cooperative entities sharing infrastructure with no cost accountability, inconsistent environments across four countries, slow manual onboarding.',
+    outcomes: [
+      'Cost visibility per cooperative entity',
+      'Consistent security baseline across 4 countries',
+      'Self-service team onboarding',
+    ],
+  },
+  {
+    company: 'Kisters',
+    industry: 'Environmental SaaS · Germany',
+    platform: 'OpenShift · On-Prem',
+    pillars: ['Tenancy', 'Templates', 'FinOps', 'Extensions', 'Compliance'],
+    challenge: 'Manual onboarding for every new utility customer, no per-customer infrastructure cost visibility, fragmented toolchain, regulatory compliance rebuilt ad-hoc for each deployment.',
+    outcomes: [
+      'Scalable SaaS customer onboarding',
+      'Infrastructure cost tracked per customer',
+      'Jurisdiction compliance automated',
+    ],
+  },
 ];
 
-const metrics = [
-  { value: '1', label: 'CRD to define a tenant', sub: 'That\'s all it takes' },
-  { value: '0', label: 'Manual namespace setup', sub: 'Fully automated' },
-  { value: '100%', label: 'GitOps compatible', sub: 'ArgoCD + Flux' },
-  { value: '10k+', label: 'Production clusters', sub: 'Running MTO today' },
+const buildVsBuy = [
+  { capability: 'Multi-tenancy layer',      diy: '3–4 months',                        mto: 'Day one' },
+  { capability: 'Policy engine',            diy: '2–3 months + ongoing tuning',        mto: 'Day one' },
+  { capability: 'Cost tracking',            diy: '3–6 months integration',             mto: 'Day one' },
+  { capability: 'Templates system',         diy: '2–3 months + drift maintenance',     mto: 'Day one' },
+  { capability: 'Ecosystem integrations',   diy: 'Ongoing — every tool is custom',     mto: 'Plug-and-play' },
+  { capability: 'Compliance framework',     diy: '6–12 months, auditor-dependent',     mto: 'Policy-as-Code, built in' },
 ];
 
-const useCases = [
-  { title: 'Platform teams running multi-team clusters', description: 'Give 10+ engineering teams self-service access while keeping your cluster clean and costs under control.' },
-  { title: 'Enterprises moving to OpenShift', description: 'MTO integrates natively with OpenShift\'s tenant model, extending it with additional automation and guardrails.' },
-  { title: 'SaaS companies with per-customer isolation', description: 'Provision a namespace per customer with automated RBAC, quotas, and network policies at scale.' },
-  { title: 'Regulated workloads requiring isolation', description: 'Financial services and healthcare teams that need provable separation between workloads for compliance.' },
+const beforeAfter = [
+  { topic: 'Cluster model',    before: 'Cluster per team — sprawl inevitable, complexity multiplies', after: 'Tenants in shared clusters — controlled scale, add teams not clusters' },
+  { topic: 'Onboarding',       before: 'Manual setup — days per team, platform team is the bottleneck', after: 'Automated provisioning — minutes per tenant, teams self-serve inside guardrails' },
+  { topic: 'Security',         before: 'Policies drift — every cluster different, baselines diverge', after: 'Policy-driven enforcement — security inherits everywhere, no drift' },
+  { topic: 'Cost visibility',  before: 'Cost blindness — no visibility per team, finance can\'t explain the bill', after: 'Per-tenant showback from day one — every team accountable' },
+  { topic: 'Platform scaling', before: 'Platform team burns out — queue grows, headcount is the only answer', after: 'Self-service platform — scales without headcount, queue disappears' },
+  { topic: 'Compliance',       before: 'Manual audit prep — a project every quarter, reactive and expensive', after: 'Continuous enforcement — audit-ready by default, governance automatic' },
+];
+
+const pillars = [
+  {
+    icon: '📋',
+    name: 'Templates',
+    tagline: 'Standardisation without slowing teams down',
+    description: 'Golden templates for namespaces, apps, and infra. Encode your platform\'s best practices once — every team inherits them automatically. Teams onboard themselves. Compliance is default behaviour, not a gate.',
+    outcome: 'Teams onboard in minutes. Environments are consistent. Platform team stops firefighting.',
+  },
+  {
+    icon: '💰',
+    name: 'FinOps',
+    tagline: 'From cost blindness to cost control',
+    description: 'Every tenant\'s consumption tracked automatically. Showback and chargeback models. Budget limits and alerts per tenant. Finance finally has answers — and engineering can justify platform investment.',
+    outcome: 'Cost is transparent, controllable, and accountable. Platform spend becomes defensible.',
+  },
+  {
+    icon: '🔌',
+    name: 'Extensions',
+    tagline: 'One platform. Unified ecosystem.',
+    description: 'ArgoCD, OpenBao/Vault, Keycloak, LGTM observability — standardised, tested, and provisioned per tenant on onboarding. A new tenant gets the complete platform stack, not just raw Kubernetes primitives.',
+    outcome: 'Consistent platform experience. Teams get the full stack from day one — no wiring required.',
+  },
+  {
+    icon: '🛡️',
+    name: 'Compliance',
+    tagline: 'Audit-ready by default',
+    description: 'Policies enforced at admission — non-compliant configs rejected before they reach the cluster. Every tenant starts compliant. ISO, DORA, SOC 2 baselines applied automatically. Audit evidence generated continuously, not collected manually before a deadline.',
+    outcome: 'Compliance is automatic — not a project that runs every quarter.',
+  },
 ];
 ---
 
-<ProductLayout
-  title="Multi-Tenant Operator"
-  description="Enforce enterprise-grade multi-tenancy across Kubernetes and OpenShift. Namespace isolation, RBAC, quotas, and network policies — managed as code."
-  label="Products"
-  headline="Multi-tenancy that actually scales"
-  highlightWord="actually scales"
-  subtext="MTO enforces enterprise-grade tenant isolation across Kubernetes and OpenShift — RBAC, quotas, network policies, and self-service provisioning, all defined as code."
-  badge="MTO"
-  tag="Multi-Tenant Operator"
-  primaryCta={{ label: 'See MTO in Action', href: '/contact' }}
-  secondaryCta={{ label: 'View on GitHub', href: 'https://github.com/stakater/multitenantoperator' }}
-  {features} {metrics} {useCases}
-/>
+<BaseLayout
+  title="Multi-Tenant Operator (MTO)"
+  description="MTO is the enterprise platform layer between Kubernetes and your teams. Tenant isolation, self-service provisioning, FinOps, and compliance — out of the box."
+>
+
+  <!-- ───── 1. HERO ───── -->
+  <section class="relative pt-24 pb-20 lg:pt-32 lg:pb-28 overflow-hidden">
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="absolute inset-0 bg-hero-radial"></div>
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-red/40 to-transparent"></div>
+
+    <div class="container-site relative z-10">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-brand-red/30 bg-brand-red/5 text-brand-red text-xs font-mono font-semibold tracking-wider uppercase mb-6 animate-on-scroll">
+          Multi-Tenant Operator
+        </div>
+
+        <h1 class="font-display text-display-xl lg:text-display-2xl font-black text-text-primary mb-6 animate-on-scroll delay-100">
+          Cluster per team sounds right.<br />
+          <span class="text-brand-red">By month six, you'll know it isn't.</span>
+        </h1>
+
+        <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed animate-on-scroll delay-200">
+          MTO is the enterprise platform layer between Kubernetes and your teams — tenant isolation, self-service provisioning, cost visibility, and compliance enforcement, out of the box.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-14 animate-on-scroll delay-300">
+          <a href="/contact" class="btn-primary">Talk to Us About a Pilot →</a>
+          <a href="https://docs.stakater.com/mto" target="_blank" rel="noopener noreferrer" class="btn-secondary">Read the Docs</a>
+        </div>
+
+        <!-- Three sharp stats -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12 animate-on-scroll delay-400">
+          {[
+            { value: '6×', label: 'more clusters than planned', sub: 'within 18 months' },
+            { value: '40%', label: 'of platform team time', sub: 'spent on cluster maintenance' },
+            { value: '0', label: 'teams with cost visibility', sub: 'per workload' },
+          ].map(s => (
+            <div class="card p-5 text-center">
+              <div class="font-display text-3xl font-black text-brand-red mb-1">{s.value}</div>
+              <div class="text-xs font-semibold text-text-primary mb-0.5">{s.label}</div>
+              <div class="text-xs text-text-muted font-mono">{s.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Platform badges -->
+        <div class="flex flex-wrap items-center justify-center gap-3 animate-on-scroll delay-500">
+          <span class="text-xs text-text-muted font-mono mr-1">Runs on:</span>
+          {['OpenShift', 'AKS', 'EKS', 'GKE', 'Any Kubernetes'].map(p => (
+            <span class="px-3 py-1 rounded-full border border-surface-border text-xs font-mono text-text-secondary">{p}</span>
+          ))}
+          <span class="px-3 py-1 rounded-full border border-brand-red/30 bg-brand-red/5 text-xs font-mono text-brand-red">Red Hat Certified</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 2. THE FAILURE MODE ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border bg-background-secondary">
+    <div class="container-site">
+      <div class="max-w-3xl mx-auto">
+        <p class="section-label mb-4 animate-on-scroll">The Pattern</p>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-4 animate-on-scroll">
+          The decision that always fails the same way
+        </h2>
+        <p class="text-text-secondary leading-relaxed mb-12 animate-on-scroll">
+          "Let's give each team their own cluster. That ensures isolation and flexibility." Sounds right on day one. By month six, the truth arrives.
+        </p>
+
+        <div class="space-y-6">
+          {[
+            {
+              label: 'No standardisation',
+              body: 'Every cluster is a snowflake. Security policies drift. Tooling duplicates across clusters. A new engineer joins and asks which way is right — there is no answer, only tribal knowledge.',
+            },
+            {
+              label: 'Costs explode',
+              body: 'Duplicated tooling. Idle nodes nobody switched off. No chargeback. Finance sees a growing cloud line item and asks why. Engineering can\'t defend it because there\'s no per-team visibility.',
+            },
+            {
+              label: 'Platform team burns out',
+              body: 'Every new team means a new cluster to provision manually. The platform team becomes the bottleneck for every environment request. Scaling means hiring more people to do the same manual work.',
+            },
+          ].map((item, i) => (
+            <div class="card p-6 border-l-2 border-brand-red animate-on-scroll" style={`animation-delay:${i * 120}ms`}>
+              <p class="text-xs font-mono font-semibold text-brand-red uppercase tracking-widest mb-2">{item.label}</p>
+              <p class="text-text-secondary leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-10 p-6 bg-brand-red/5 border border-brand-red/20 rounded-xl animate-on-scroll">
+          <p class="font-display font-black text-text-primary text-lg">
+            Operational cost grows linearly. Complexity grows exponentially.
+          </p>
+          <p class="text-text-secondary text-sm mt-2">Add a team → add a cluster → add a full operations burden. There is no economy of scale with cluster sprawl.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 3. THE REAL PROBLEM (short reframe) ───── -->
+  <section class="py-16 lg:py-20 border-t border-surface-border">
+    <div class="container-site">
+      <div class="max-w-3xl mx-auto">
+        <p class="section-label mb-4 animate-on-scroll">The Diagnosis</p>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-10 animate-on-scroll">
+          You're solving the wrong problem
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          {[
+            { truth: 'Namespace ≠ multi-tenancy', body: 'A namespace is a label. Isolation requires policy, network, RBAC, and quotas enforced together — not a name.' },
+            { truth: 'Kubernetes gives primitives, not a platform', body: 'RBAC, NetworkPolicy, ResourceQuota — these are building blocks. You still have to assemble the platform every time.' },
+            { truth: 'Self-service without guardrails is a compliance risk', body: 'Freedom without policy enforcement is controlled chaos. Teams ship whatever works locally. Auditors notice.' },
+          ].map((item, i) => (
+            <div class="card p-6 animate-on-scroll" style={`animation-delay:${i * 120}ms`}>
+              <p class="font-display font-bold text-text-primary text-sm mb-3">{item.truth}</p>
+              <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="font-display text-xl font-black text-text-primary animate-on-scroll">
+          This is not a Kubernetes problem. <span class="text-brand-red">It's a platform problem.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 4. MTO AS THE PLATFORM LAYER ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border bg-background-secondary">
+    <div class="container-site">
+      <div class="max-w-4xl mx-auto">
+        <p class="section-label mb-4 animate-on-scroll">The Solution</p>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-4 animate-on-scroll">
+          The platform layer between Kubernetes and your teams
+        </h2>
+        <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+          Instead of one cluster per team, you run few clusters with many secure, isolated tenants. MTO enforces the boundaries, automates the provisioning, and makes compliance the default — not the exception.
+        </p>
+
+        <!-- Architecture diagram -->
+        <div class="card p-8 animate-on-scroll">
+          <!-- Teams row -->
+          <div class="mb-4">
+            <p class="text-xs font-mono text-text-muted uppercase tracking-widest mb-3 text-center">Your Teams</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              {['Team A', 'Team B', 'Team C', 'Team D', 'Team N+'].map((t, i) => (
+                <div class={`px-4 py-2 rounded-lg border text-xs font-mono font-semibold ${i < 4 ? 'border-surface-border-strong text-text-secondary bg-surface' : 'border-dashed border-surface-border text-text-muted'}`}>
+                  {t}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="flex justify-center my-3">
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-px h-6 bg-brand-red/40"></div>
+              <svg class="w-3 h-3 text-brand-red" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </div>
+          </div>
+
+          <!-- MTO layer -->
+          <div class="mb-4">
+            <p class="text-xs font-mono text-brand-red uppercase tracking-widest mb-3 text-center">Platform Layer — Multi-Tenant Operator</p>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-2">
+              {['Tenancy', 'Templates', 'Hibernation', 'FinOps', 'Extensions', 'Compliance'].map(p => (
+                <div class="px-3 py-2 rounded-lg bg-brand-red/5 border border-brand-red/20 text-center">
+                  <span class="text-xs font-mono text-brand-red font-semibold">{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Arrow down -->
+          <div class="flex justify-center my-3">
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-px h-6 bg-brand-red/40"></div>
+              <svg class="w-3 h-3 text-brand-red" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </div>
+          </div>
+
+          <!-- Kubernetes row -->
+          <div>
+            <p class="text-xs font-mono text-text-muted uppercase tracking-widest mb-3 text-center">Kubernetes Infrastructure</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              {['OpenShift', 'AKS', 'EKS', 'GKE', 'Any K8s'].map(k => (
+                <div class="px-4 py-2 rounded-lg border border-surface-border text-xs font-mono text-text-muted bg-background-tertiary">{k}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p class="text-center text-text-muted font-mono text-sm mt-6 animate-on-scroll">
+          The platform you end up building anyway — out of the box.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 5. TENANCY PILLAR (full section) ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border">
+    <div class="container-site">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center gap-3 mb-4 animate-on-scroll">
+          <span class="text-2xl">🏢</span>
+          <span class="section-label">Pillar 1 · Tenancy</span>
+        </div>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-3 animate-on-scroll">
+          True tenant isolation — not just namespaces
+        </h2>
+        <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+          RBAC, network policies, and resource quotas set up automatically when a tenant is onboarded. Enforced continuously, not just at setup. Teams can't see or affect each other.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+          <!-- Problem -->
+          <div class="card p-8 animate-on-scroll">
+            <p class="text-xs font-mono font-semibold text-text-muted uppercase tracking-widest mb-6">Without MTO</p>
+            <div class="space-y-5">
+              {[
+                { title: 'A namespace is not isolation', body: 'Without enforced boundaries, teams can accidentally reach each other\'s workloads — and you won\'t know until something breaks.' },
+                { title: 'Manual setup for every team', body: 'RBAC, quotas, network policies — configured by hand, every time. One missed setting is a compliance gap.' },
+                { title: 'Auditors ask who has access to what', body: 'Misconfigured RBAC causes incidents. When the question comes, you don\'t have a clean answer — just a lot of manual digging.' },
+              ].map(item => (
+                <div class="flex items-start gap-3">
+                  <span class="text-red-400 mt-0.5 flex-shrink-0 font-bold">✕</span>
+                  <div>
+                    <p class="text-sm font-semibold text-text-primary mb-1">{item.title}</p>
+                    <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Solution -->
+          <div class="card p-8 border-brand-red/20 bg-brand-red/5 animate-on-scroll delay-150">
+            <p class="text-xs font-mono font-semibold text-brand-red uppercase tracking-widest mb-6">With MTO</p>
+            <div class="space-y-5">
+              {[
+                { title: 'Tenant as a first-class resource', body: 'Not just a namespace — a governed unit with its own identity, policies, and enforced boundaries from the moment it\'s created.' },
+                { title: 'Isolation provisioned automatically', body: 'RBAC, network policies, resource quotas — configured when a tenant onboards. No manual steps. No forgotten configs. No gaps.' },
+                { title: 'Real boundaries across workloads, network, and storage', body: 'Enforced continuously, not just at setup. Security posture is consistent across every tenant, always.' },
+              ].map(item => (
+                <div class="flex items-start gap-3">
+                  <span class="text-brand-red mt-0.5 flex-shrink-0 font-bold">✓</span>
+                  <div>
+                    <p class="text-sm font-semibold text-text-primary mb-1">{item.title}</p>
+                    <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 bg-background-secondary border border-surface-border rounded-xl animate-on-scroll">
+          <p class="text-sm font-semibold text-text-primary">Outcome: <span class="text-text-secondary font-normal">Secure multi-tenancy at scale — enforce once, inherit everywhere.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 5b. HIBERNATION PILLAR (full section) ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border bg-background-secondary">
+    <div class="container-site">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center gap-3 mb-4 animate-on-scroll">
+          <span class="text-2xl">💤</span>
+          <span class="section-label">Pillar 3 · Hibernation</span>
+        </div>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-3 animate-on-scroll">
+          Stop paying for idle workloads
+        </h2>
+        <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+          Nobody is using dev and staging at 2am, on weekends, or over holidays. The compute bill doesn't know that. Hibernation does.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
+          <!-- Problem -->
+          <div class="card p-8 animate-on-scroll">
+            <p class="text-xs font-mono font-semibold text-text-muted uppercase tracking-widest mb-6">Without MTO</p>
+            <div class="space-y-5">
+              {[
+                { title: 'Dev and staging run 24/7', body: 'Non-production environments burn compute around the clock. Weekends, nights, public holidays — all billed the same as peak business hours.' },
+                { title: 'No automatic off switch', body: 'Cloud costs grow without discipline. Every idle pod is waste, but nobody owns the problem or has the tools to act on it.' },
+                { title: 'Finance can\'t explain the bill', body: '"Cloud costs went up" is not a root cause. Without visibility into idle spend, every budget conversation is guesswork.' },
+              ].map(item => (
+                <div class="flex items-start gap-3">
+                  <span class="text-red-400 mt-0.5 flex-shrink-0 font-bold">✕</span>
+                  <div>
+                    <p class="text-sm font-semibold text-text-primary mb-1">{item.title}</p>
+                    <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Solution -->
+          <div class="card p-8 border-brand-red/20 bg-brand-red/5 animate-on-scroll delay-150">
+            <p class="text-xs font-mono font-semibold text-brand-red uppercase tracking-widest mb-6">With MTO</p>
+            <div class="space-y-5">
+              {[
+                { title: 'Automatic sleep / wake on a schedule', body: 'Define business hours per tenant or namespace. Workloads spin down at night and back up in the morning — automatically, without anyone involved.' },
+                { title: 'On-demand activation when teams need it', body: 'Teams can wake their environment instantly when needed outside schedule. No waiting, no platform team involved.' },
+                { title: 'Fine-grained control per environment', body: 'Different schedules for dev, staging, and test. Each team\'s workload profile is different — Hibernation respects that.' },
+              ].map(item => (
+                <div class="flex items-start gap-3">
+                  <span class="text-brand-red mt-0.5 flex-shrink-0 font-bold">✓</span>
+                  <div>
+                    <p class="text-sm font-semibold text-text-primary mb-1">{item.title}</p>
+                    <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="p-5 bg-background-tertiary border border-surface-border rounded-xl animate-on-scroll flex items-center justify-between flex-wrap gap-4">
+          <p class="text-sm font-semibold text-text-primary">Outcome: <span class="text-text-secondary font-normal">Immediate, measurable ROI from week one.</span></p>
+          <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-brand-red/10 border border-brand-red/20">
+            <span class="font-display font-black text-brand-red text-xl">60%</span>
+            <span class="text-xs text-text-secondary">savings on<br/>non-production</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 6. REMAINING FOUR PILLARS ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border">
+    <div class="container-site">
+      <p class="section-label mb-4 animate-on-scroll">The Full Platform</p>
+      <h2 class="font-display text-display-md font-black text-text-primary mb-4 animate-on-scroll">
+        Four more pillars. All production-ready.
+      </h2>
+      <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+        Tenancy and Hibernation are the fastest wins. The rest of the platform is already there when you need it.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {pillars.map((p, i) => (
+          <div class="card p-8 animate-on-scroll" style={`animation-delay:${i * 120}ms`}>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-2xl">{p.icon}</span>
+              <div>
+                <h3 class="font-display font-black text-text-primary">{p.name}</h3>
+                <p class="text-xs font-mono text-brand-red">{p.tagline}</p>
+              </div>
+            </div>
+            <p class="text-sm text-text-secondary leading-relaxed mb-4">{p.description}</p>
+            <div class="pt-4 border-t border-surface-border">
+              <p class="text-xs text-text-muted"><span class="text-text-secondary font-semibold">Outcome:</span> {p.outcome}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 7. BEFORE / AFTER TABLE ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border bg-background-secondary">
+    <div class="container-site">
+      <p class="section-label mb-4 animate-on-scroll">Summary</p>
+      <h2 class="font-display text-display-md font-black text-text-primary mb-12 animate-on-scroll">
+        From chaos to platform
+      </h2>
+
+      <div class="card overflow-hidden animate-on-scroll">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-surface-border">
+              <th class="text-left px-6 py-4 text-text-muted font-mono text-xs uppercase tracking-wider w-1/4">Area</th>
+              <th class="px-6 py-4 text-left text-text-muted font-mono text-xs uppercase tracking-wider w-[37.5%]">Without MTO</th>
+              <th class="px-6 py-4 text-left text-brand-red font-mono text-xs uppercase tracking-wider w-[37.5%]">With MTO</th>
+            </tr>
+          </thead>
+          <tbody>
+            {beforeAfter.map((row, i) => (
+              <tr class={`border-b border-surface-border last:border-0 ${i % 2 === 0 ? '' : 'bg-surface/20'}`}>
+                <td class="px-6 py-4 font-mono text-xs font-semibold text-text-muted uppercase tracking-wider">{row.topic}</td>
+                <td class="px-6 py-4">
+                  <div class="flex items-start gap-2">
+                    <span class="text-red-400 font-bold flex-shrink-0 mt-0.5">✕</span>
+                    <span class="text-text-secondary text-xs leading-relaxed">{row.before}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <div class="flex items-start gap-2">
+                    <span class="text-brand-red font-bold flex-shrink-0 mt-0.5">✓</span>
+                    <span class="text-text-secondary text-xs leading-relaxed">{row.after}</span>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 8. BUILD VS BUY ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border">
+    <div class="container-site">
+      <div class="max-w-4xl mx-auto">
+        <p class="section-label mb-4 animate-on-scroll">The Real Decision</p>
+        <h2 class="font-display text-display-md font-black text-text-primary mb-4 animate-on-scroll">
+          The question isn't whether you build this.<br />It's whether you build it yourself.
+        </h2>
+        <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+          Every engineering team running Kubernetes at scale ends up building a platform layer. The only question is how long it takes and who maintains it forever.
+        </p>
+
+        <div class="card overflow-hidden mb-8 animate-on-scroll">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-surface-border">
+                <th class="text-left px-6 py-4 text-text-muted font-mono text-xs uppercase tracking-wider">Capability</th>
+                <th class="px-6 py-4 text-center text-text-muted font-mono text-xs uppercase tracking-wider">Build yourself</th>
+                <th class="px-6 py-4 text-center text-brand-red font-mono text-xs uppercase tracking-wider">MTO</th>
+              </tr>
+            </thead>
+            <tbody>
+              {buildVsBuy.map((row, i) => (
+                <tr class={`border-b border-surface-border last:border-0 ${i % 2 === 0 ? '' : 'bg-surface/20'}`}>
+                  <td class="px-6 py-4 text-text-secondary">{row.capability}</td>
+                  <td class="px-6 py-4 text-center text-xs text-text-muted font-mono">{row.diy}</td>
+                  <td class="px-6 py-4 text-center text-xs text-brand-red font-mono font-semibold">{row.mto}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div class="card p-6 animate-on-scroll">
+            <p class="text-xs font-mono font-semibold text-text-muted uppercase tracking-widest mb-3">Option A — Build it yourself</p>
+            <ul class="space-y-2">
+              {['6–18 months of engineering', 'Ongoing maintenance forever', 'Key-person dependency', 'No roadmap, no support', 'Still incomplete at v1'].map(item => (
+                <li class="flex items-center gap-2 text-sm text-text-secondary">
+                  <span class="text-red-400 font-bold">✕</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="card p-6 border-brand-red/20 bg-brand-red/5 animate-on-scroll delay-150">
+            <p class="text-xs font-mono font-semibold text-brand-red uppercase tracking-widest mb-3">Option B — Start with MTO today</p>
+            <ul class="space-y-2">
+              {['Production-ready in weeks', 'Proven patterns, continuous updates', 'Supported by experts who built it', 'Red Hat certified', 'Immediate cost savings from Hibernation'].map(item => (
+                <li class="flex items-center gap-2 text-sm text-text-secondary">
+                  <span class="text-brand-red font-bold">✓</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="p-6 bg-background-secondary border border-surface-border rounded-xl animate-on-scroll">
+          <p class="font-display font-black text-text-primary">
+            You're not choosing between MTO and nothing.
+          </p>
+          <p class="text-text-secondary mt-2">You're choosing between MTO and 18 months of internal engineering that produces an incomplete, unmaintained version of it. Then you own it forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 9. CASE STUDIES ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border bg-background-secondary">
+    <div class="container-site">
+      <p class="section-label mb-4 animate-on-scroll">Customer Evidence</p>
+      <h2 class="font-display text-display-md font-black text-text-primary mb-4 animate-on-scroll">
+        Teams like yours, problems you recognise
+      </h2>
+      <p class="text-text-secondary mb-12 max-w-2xl animate-on-scroll">
+        Public sector, retail, SaaS, financial intelligence — across OpenShift, EKS, and GKE. Different stacks, same platform problems.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {caseStudies.map((cs, i) => (
+          <div class="card p-8 animate-on-scroll" style={`animation-delay:${i * 120}ms`}>
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="font-display font-black text-text-primary text-lg">{cs.company}</h3>
+                <p class="text-xs text-text-muted mt-0.5">{cs.industry}</p>
+              </div>
+              <span class="px-2 py-1 rounded border border-surface-border text-xs font-mono text-text-muted flex-shrink-0">{cs.platform}</span>
+            </div>
+
+            <p class="text-sm text-text-secondary leading-relaxed mb-6">{cs.challenge}</p>
+
+            <div class="mb-5">
+              <p class="text-xs font-mono text-text-muted uppercase tracking-wider mb-2">Pillars used</p>
+              <div class="flex flex-wrap gap-1.5">
+                {cs.pillars.map(p => (
+                  <span class="px-2 py-0.5 rounded bg-brand-red/5 border border-brand-red/20 text-xs font-mono text-brand-red">{p}</span>
+                ))}
+              </div>
+            </div>
+
+            <div class="pt-5 border-t border-surface-border space-y-2">
+              {cs.outcomes.map(o => (
+                <div class="flex items-center gap-2 text-xs text-text-secondary">
+                  <span class="text-brand-red font-bold">✓</span> {o}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 10. WHY STAKATER ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border">
+    <div class="container-site">
+      <p class="section-label mb-4 animate-on-scroll">Why Stakater</p>
+      <h2 class="font-display text-display-md font-black text-text-primary mb-12 animate-on-scroll">
+        Product experts, not platform generalists
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {[
+          { icon: '🏅', title: 'Red Hat Premier Partner', body: 'Deepest OpenShift integration and support in the ecosystem. Certified at the highest partner tier.' },
+          { icon: '✅', title: 'Red Hat Certified Operator', body: 'MTO is Red Hat certified — enterprise-grade, supported lifecycle, not a side project.' },
+          { icon: '🧠', title: 'Kubernetes Multi-Tenancy Specialists', body: 'This is not a side product. We have been building and running multi-tenant Kubernetes platforms since 2015.' },
+          { icon: '🔧', title: 'Product + Consulting', body: 'We deploy with you, not just ship a licence. Pilot to production, with the engineers who built MTO.' },
+        ].map((item, i) => (
+          <div class="card p-6 animate-on-scroll" style={`animation-delay:${i * 100}ms`}>
+            <div class="text-2xl mb-3">{item.icon}</div>
+            <h3 class="font-display font-bold text-text-primary text-sm mb-2">{item.title}</h3>
+            <p class="text-xs text-text-secondary leading-relaxed">{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── 11. CLOSING CTA ───── -->
+  <section class="py-20 lg:py-28 border-t border-surface-border relative overflow-hidden">
+    <div class="absolute inset-0 bg-hero-radial opacity-60"></div>
+    <div class="container-site relative z-10">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="font-display text-display-lg font-black text-text-primary mb-4 animate-on-scroll">
+          You will build this platform layer eventually.
+        </h2>
+        <p class="text-text-secondary text-lg mb-4 animate-on-scroll">
+          The only question is whether it takes two weeks or eighteen months.
+        </p>
+        <p class="text-text-muted mb-10 animate-on-scroll">
+          Start with a pilot — one cluster, two or three teams, one to two weeks. No big-bang transformation. Just enough to see it working in your environment.
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-12 animate-on-scroll">
+          <a href="/contact" class="btn-primary">Let's Talk About a Pilot →</a>
+          <a href="https://docs.stakater.com/mto" target="_blank" rel="noopener noreferrer" class="btn-secondary">Read the Docs</a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-on-scroll">
+          {[
+            { label: 'Workshop / Assessment', desc: 'Map your current setup and define the right rollout' },
+            { label: 'Pilot Deployment', desc: 'MTO running in your cluster in 1–2 weeks' },
+            { label: 'Platform Maturity Roadmap', desc: 'From pilot to organisation-wide platform' },
+          ].map(item => (
+            <div class="card p-5 text-center">
+              <p class="font-semibold text-text-primary text-sm mb-1">{item.label}</p>
+              <p class="text-xs text-text-muted">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
